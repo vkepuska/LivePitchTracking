@@ -22,7 +22,6 @@ from gui.displaySwitch import DisplaySwitch         # plot display switch
 class PdaPlots(object, metaclass=Singleton):
     """Handles set of pitch detection plots."""
 
-    TITLE = 'Pitch Detection Algorithm'             # title of form for plots
     FONTSIZE = 16                                   # font size for title
     VERTICAL_LAYOUT = True                          # stack subplot up/down
     CLEAR_TIME = 0                                  # reset elapsed time
@@ -64,8 +63,6 @@ class PdaPlots(object, metaclass=Singleton):
         if self.__canvasWidget is not None:
             self.__canvasWidget.destroy()
         self.__fig = Figure()                       # master plot element
-        # title plot element
-        self.__fig.suptitle(self.TITLE, fontsize=self.FONTSIZE)
         self.__numPlot = 0                          # start number of subplot
         self.__subPlots = list()                    # container for subplots
         # create mag/freq/pitch plot objects and append in container

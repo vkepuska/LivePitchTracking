@@ -4,12 +4,13 @@ from plots.pdaPlots import PdaPlots                 # sound plots widget
 from gui.elapsedTime import ElapsedTime             # processing time widget
 
 
-class PDA(object):
+class SEA(object):
     """Set up and manage the graphical interface."""
 
     # Constants
-    TITLE = 'Pitch Determination Algorithm'         # window title
-    SCREEN_PERCENT = 0.5                            # percent of screen h/w
+    TITLE = 'Speech Emotion Analyzer'               # window title
+    WINDOW_WIDTH = 800                              # pixels across
+    WINDOW_HEIGHT = 480                             # pixels up/down
 
     def __init__(self):
         """Construct object."""
@@ -38,8 +39,14 @@ class PDA(object):
         screenHeight = self.__win.winfo_screenheight()  # get screen height
 
         # set window size to be within screen
-        windowWidth = int(screenWidth*self.SCREEN_PERCENT)      # win width
-        windowHeight = int(screenHeight*self.SCREEN_PERCENT)    # win height
+        if screenWidth > 1080:
+            # set window size to be within screen
+            windowWidth = self.WINDOW_WIDTH             # win width
+            windowHeight = self.WINDOW_HEIGHT           # win height
+        else:
+            # for mobile device, take over entire screen
+            windowWidth = screenWidth                   # win width
+            windowHeight = screenHeight                 # win height
 
         # format to string that for geometry call
         return "{}x{}".format(windowWidth, windowHeight)

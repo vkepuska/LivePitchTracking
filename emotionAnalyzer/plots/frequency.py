@@ -12,6 +12,7 @@ class FrequencyPlot(SubPlot):
     YLABEL = 'Spectral Magnitude'                   # label for y-axis
     NTTF = 1024                                     # num of FFT points
     OVERLAP_LENGTH = 900                            # overlap between blocks
+    COLOR_MAP = 'Greys'                             # color of spectrograph
     MODE = 'magnitude'                              # magnitude spectrum
 
     def update(self):
@@ -21,5 +22,6 @@ class FrequencyPlot(SubPlot):
                            Fs=FS,                   # sampling frequency use
                            NFFT=self.NTTF,          # num of FFT points used
                            noverlap=self.OVERLAP_LENGTH,    # amount overlap
+                           cmap=self.COLOR_MAP,
                            mode=self.MODE)          # spectrum to use
         self._labelRefresh()                        # reapply labels
