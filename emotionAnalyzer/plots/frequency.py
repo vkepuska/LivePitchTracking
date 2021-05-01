@@ -23,8 +23,8 @@ class FrequencyPlot(SubPlot):
         self._plt.specgram(self._pitchTracker.data,         # signal to plot
                            window=window_hanning,   # tapering window to used
                            Fs=FS,                   # sampling frequency use
-                           #NFFT=self.NTTF,          # num of FFT points used
-                           #noverlap=self.OVERLAP_LENGTH,    # amount overlap
+                           NFFT=self.NTTF,          # num of FFT points used
+                           noverlap=self.OVERLAP_LENGTH,    # amount overlap
                            cmap=self.COLOR_MAP,     # type of colors
                            vmin=self.VMIN,          # white
                            vmax=self.VMAX,          # black
