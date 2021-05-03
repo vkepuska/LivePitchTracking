@@ -10,8 +10,8 @@ class FrequencyPlot(SubPlot):
     TITLE = 'Spectrogram of Speech'                 # title of plot
     XLABEL = 'Time'                                 # label for x-axis
     YLABEL = 'Spectral Magnitude'                   # label for y-axis
-    NTTF = 1024                                     # num of FFT points
-    OVERLAP_LENGTH = 900                            # overlap between blocks
+    NTTF =  512                                     # num of FFT points
+    OVERLAP_LENGTH = 128                            # overlap between blocks
     COLOR_MAP = 'Greys'                             # color of spectrograph
     VMIN = -1E0                                     # min value for color scale
     VMAX = 1E2                                      # max value for color scale
