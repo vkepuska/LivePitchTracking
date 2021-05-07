@@ -1,4 +1,3 @@
-import pyaudio as pa                            # API to access mic stream
 import numpy as np                              # library to convert data
 from patterns.singleton import Singleton        # design pattern (one instance)
 from universal.constants import FS              # sampling frequency
@@ -11,11 +10,15 @@ class Microphone(object, metaclass=Singleton):
     """Handles microphone access."""
 
     # Constants
-    FORMAT = pa.paInt16                         # data type
     INPUT = True                                # input stream
 
     def __init__(self):
         """Construct object."""
+        try:
+            import pyaudio as pa                # API to access mic stream
+        except ImportError:
+            import stub.pyaudio as pa           # temporary stub till work on Android
+        self.FORMAT = pa.paInt16                # data type
         self.__audio = pa.PyAudio()             # microphone object
         self.__stream = None                    # stream object
         self.__buffer = np.zeros(FS)            # store 1 sec of samples
