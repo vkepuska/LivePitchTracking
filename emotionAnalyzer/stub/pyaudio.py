@@ -2,11 +2,11 @@ paInt16 = None
 
 class PyAudio(object):
   def __init__(self):
-    stream = Stream()
+    self.__stream = Stream()
     pass
 
   def open(self):
-    return stream
+    return self.__stream
 
 class Stream(object):
   def __init__(self):
