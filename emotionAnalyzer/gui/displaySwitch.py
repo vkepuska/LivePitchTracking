@@ -6,6 +6,7 @@ class DisplaySwitch(CommandSwitch):
     """Class for toggling processor to handle calculations."""
 
     COLOR = 'blue'                                  # color of toggle switch
+    DEFAULT = DisplayPlots.ALL.value                # initial set of plots
 
     def __init__(self, form):
         """Construct object."""
@@ -13,7 +14,8 @@ class DisplaySwitch(CommandSwitch):
 
         self.__modes = DisplayPlots                 # enum of switch modes
         # call parent constructor
-        super().__init__(form=form, modes=self.__modes, color=self.COLOR)
+        super().__init__(form=form, modes=self.__modes, color=self.COLOR, 
+                            default=self.DEFAULT)
 
     def __setPlots(self, plots):
         """Set plot objects."""

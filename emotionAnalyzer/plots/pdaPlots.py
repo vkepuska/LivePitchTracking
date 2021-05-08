@@ -8,7 +8,7 @@ from universal.constants import PROCESS_FILE        # allow user process files
 from patterns.singleton import Singleton            # one instance
 from patterns.switch import Switch                  # select swich
 from enumerations.pdaModes import InputSources      # sound input sources
-from enumerations.pdaModes import DisplayPlots  # enum for input souces
+from enumerations.pdaModes import DisplayPlots      # enum for input souces
 from samples.microphone import Microphone           # handle microphone
 from samples.audioFile import AudioFile             # handle audio file
 from processing.pitchTracker import PitchTracker    # tracking hi/lo of sound

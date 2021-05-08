@@ -7,6 +7,7 @@ class SourceSwitch(CommandSwitch):
 
     # Constants
     COLOR = 'red'                                   # color of toggle switch
+    DEFAULT = InputSources.MIC.value                # initial type of input
 
     def __init__(self, form):
         """Construct object."""
@@ -14,7 +15,8 @@ class SourceSwitch(CommandSwitch):
 
         self.__modes = InputSources                 # enum of switch modes
         # call parent constructor
-        super().__init__(form=form, modes=self.__modes, color=self.COLOR)
+        super().__init__(form=form, modes=self.__modes, color=self.COLOR,
+                         default=self.DEFAULT)
 
     def __setPlots(self, plots):
         """Set plot objects."""

@@ -21,6 +21,7 @@ class SEA(object):
         self.__elapsed = ElapsedTime(self.__win)    # elapsed time object
         self.__command.plots = self.__plots         # provide plots to command
         self.__plots.elapsed = self.__elapsed       # elps-time->plot
+        self.__plots.update()                       # start diplaying plots
 
     def run(self):
         """Activate the GUI."""
