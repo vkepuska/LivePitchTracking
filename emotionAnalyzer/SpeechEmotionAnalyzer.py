@@ -8,6 +8,7 @@ Project: Perform speech analysis with ability to detect emotions.
 
 # class that manages GUI for this project
 from gui.window import SEA
+from tkinter import Tk
 
 # Designated Start of Program
 if __name__ == '__main__':
