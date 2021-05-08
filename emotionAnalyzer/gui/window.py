@@ -9,8 +9,8 @@ class SEA(object):
 
     # Constants
     TITLE = 'Speech Emotion Analyzer'               # window title
-    WINDOW_WIDTH = 800                              # pixels across
-    WINDOW_HEIGHT = 480                             # pixels up/down
+    WINDOW_WIDTH = 480                              # pixels across
+    WINDOW_HEIGHT = 800                             # pixels up/down
 
     def __init__(self):
         """Construct object."""
@@ -39,7 +39,7 @@ class SEA(object):
         screenHeight = self.__win.winfo_screenheight()  # get screen height
 
         # set window size to be within screen
-        if screenWidth > 1080:
+        if screenWidth > screenHeight:
             # set window size to be within screen
             windowWidth = self.WINDOW_WIDTH             # win width
             windowHeight = self.WINDOW_HEIGHT           # win height
