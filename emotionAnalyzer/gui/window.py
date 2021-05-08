@@ -27,6 +27,16 @@ class SEA(object):
         """Activate the GUI."""
         self.__win.mainloop()
 
+    @property
+    def width(self):
+        """Returns width of GUI window."""
+        return self.__windowWidth
+
+    @property
+    def height(self):
+        """Returns width of GUI window."""
+        return self.__windowHeight
+
     def __configure(self):
         """Initialize the look of the GUI."""
         self.__win.geometry(self.__size())          # set window size
@@ -42,12 +52,12 @@ class SEA(object):
         # set window size to be within screen
         if screenWidth > screenHeight:
             # set window size to be within screen
-            windowWidth = self.WINDOW_WIDTH             # win width
-            windowHeight = self.WINDOW_HEIGHT           # win height
+            self.__windowWidth = self.WINDOW_WIDTH      # win width
+            self.__windowHeight = self.WINDOW_HEIGHT    # win height
         else:
             # for mobile device, take over entire screen
-            windowWidth = screenWidth                   # win width
-            windowHeight = screenHeight                 # win height
+            self.__windowWidth = screenWidth            # win width
+            self.__windowHeight = screenHeight          # win height
 
         # format to string that for geometry call
-        return "{}x{}".format(windowWidth, windowHeight)
+        return "{}x{}".format(self.__windowWidth, self.__windowHeight)

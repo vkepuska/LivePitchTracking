@@ -41,22 +41,23 @@ class PdaPlots(object, metaclass=Singleton):
         self.__pitchTracker = PitchTracker()        # pitch tracker instance
         self.__audioFile = AudioFile()              # audio file handler
         self.__microphone = Microphone()            # microphone handler
-        self.__display = DisplaySwitch(self.__frame)    # list of plot types
+        #self.__display = DisplaySwitch(self.__frame)    # list of plot types
         self.__elapsedTime = 0.0                    # time to track pitch
-        if(PROCESS_FILE):                      # allow user select files
-            self.__source = SourceSwitch(self.__frame)  # source input GUI switch
+        #if(PROCESS_FILE):                      # allow user select files
+            #self.__source = SourceSwitch(self.__frame)  # source input GUI switch
 
     def update(self):
         """Update the plots."""
-        if(PROCESS_FILE):                      # allow user select files
-            for case in Switch(self.__source.mode):
-                if case(InputSources.FILE.value):
-                    self.processFile()
-                    break
-                if case():
-                    self.processMic()
-        else:
-            self.processMic()
+        self.processFile()
+        # if(PROCESS_FILE):                      # allow user select files
+        #     for case in Switch(self.__source.mode):
+        #         if case(InputSources.FILE.value):
+        #             self.processFile()
+        #             break
+        #         if case():
+        #             self.processMic()
+        # else:
+        #     self.processMic()
 
 
     def __configPlots(self):
@@ -66,27 +67,31 @@ class PdaPlots(object, metaclass=Singleton):
         self.__numPlot = 0                          # start number of subplot
         self.__subPlots = list()                    # container for subplots
         # create mag/freq/pitch plot objects and append in container
-        for case in Switch(self.__display.mode):
-            if case(DisplayPlots.MAGNITUDE.value):
-                self.numPlots = 1                   # number subplots display
-                self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
-                break
-            if case(DisplayPlots.FREQUENCY.value):
-                self.numPlots = 1                   # number subplots display
-                self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
-                break
-            if case(DisplayPlots.PITCH.value):
-                self.numPlots = 1                   # number subplots display
-                self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
-                break
-            if case(DisplayPlots.ALL.value):
-                self.numPlots = 3                   # number subplots display
-                self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
-                self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
-                self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
-                break
-            if case():
-                self.numPlots = 0
+        # for case in Switch(self.__display.mode):
+        #     if case(DisplayPlots.MAGNITUDE.value):
+        #         self.numPlots = 1                   # number subplots display
+        #         self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
+        #         break
+        #     if case(DisplayPlots.FREQUENCY.value):
+        #         self.numPlots = 1                   # number subplots display
+        #         self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
+        #         break
+        #     if case(DisplayPlots.PITCH.value):
+        #         self.numPlots = 1                   # number subplots display
+        #         self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
+        #         break
+        #     if case(DisplayPlots.ALL.value):
+        #         self.numPlots = 3                   # number subplots display
+        #         self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
+        #         self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
+        #         self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
+        #         break
+        #     if case():
+        #         self.numPlots = 0
+        self.numPlots = 3                   # number subplots display
+        self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
+        self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
+        self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
         # allocate more height to each subplot to make titles/x-label visable
         self.__fig.subplots_adjust(hspace=self.HSPACE)
         # utilize figure to create canvas within frame
