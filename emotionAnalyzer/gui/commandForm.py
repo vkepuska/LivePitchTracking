@@ -1,40 +1,39 @@
 import tkinter as tk                                # GUI toolkit
-from universal.constants import PROCESS_FILE        # allow user process files
-from gui.displaySwitch import DisplaySwitch         # switch for plot to display
-from gui.sourceSwitch import SourceSwitch           # source input switch
-from gui.fileBrowser import FileBrowser             # select sound file
-from gui.fileButton import FileButton
+from gui.micButton import MicButton                 # button to start microphone
+from gui.fileButton import FileButton               # button to select file
 
 
 class CommandForm(object):
     """Manages the window form for controlling the GUI."""
+
+    COLOR = 'gray'                                  # background color
+    RELATIVE_WIDTH = 1.0                            # entire width
+    RELATIVE_HEIGHT = 0.1                           # top 0.1 of window
 
     def __init__(self, win):
         """Construct object."""
         # win   window application
 
         self.__frame = tk.Frame(win)                # create frame from window
-        # create widges
-        #self.__displaySwitch = DisplaySwitch(self.__frame)      # plot select
-        #if(PROCESS_FILE):                                       # file process
-            #self.__sourceSwitch = SourceSwitch(self.__frame)    # input select
-            #self.__fileBrowser = FileBrowser(self.__frame)      # file bowser
+        self.__configure()                          # initialize the look
+        self.__widgets()                            # add widgets
+
+    def __configure(self):
+        """Initialize the look/location of the Form."""
+        self.__frame.configure(background=self.COLOR)       # color
+        self.__frame.place(relwidth=self.RELATIVE_WIDTH)    # span across
+        self.__frame.place(relheight=self.RELATIVE_HEIGHT)  # span up/down
+
+    def __widgets(self):
+        """Create widgets contained in Form."""
+        self.__micButton = MicButton(self.__frame)
         self.__fileButton = FileButton(self.__frame)
-        # place form within window
-        self.__frame.pack(anchor=tk.N)              # center top
-        self.__frame.pack(fill=tk.X)                # fill horizontally
-        self.__frame.pack(expand=tk.YES)            # fill up space not used
 
     def __setPlots(self, plots):
-        """Passes plot object to widgets"""
-        # plots widget that handles plits
-
-        # pass plots to other widgets for callbacks
-        #self.__displaySwitch.plots = plots          # plot select
-        #if(PROCESS_FILE):                           # file process
-            #self.__fileBrowser.plots = plots        # file browser
-            #self.__sourceSwitch.plots = plots       # input source
+        """Pass plot object to widgets"""
+        self.__micButton.plots = plots
         self.__fileButton.plots = plots
+        pass
 
     """Property for setting plots widget."""
     plots = property(None, __setPlots)

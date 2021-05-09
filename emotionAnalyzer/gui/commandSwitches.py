@@ -3,7 +3,7 @@ from patterns.singleton import Singleton        # design pattern (one instance)
 
 
 class CommandSwitch(object, metaclass=Singleton):
-    """Genralized class for toggle switched in the GUI."""
+    """Genralized class for toggle switches in the GUI."""
 
     # Constants
     COLOR = 'black'                             # color of toggle switch

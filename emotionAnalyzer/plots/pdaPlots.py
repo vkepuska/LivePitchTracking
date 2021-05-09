@@ -4,24 +4,21 @@ from matplotlib.figure import Figure                # plot element container
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from time import perf_counter as currentTime        # API for current CPU time
 from universal.constants import FRAME_PERIOD        # analysis window
-from universal.constants import PROCESS_FILE        # allow user process files
 from patterns.singleton import Singleton            # one instance
-from patterns.switch import Switch                  # select swich
-from enumerations.pdaModes import InputSources      # sound input sources
-from enumerations.pdaModes import DisplayPlots      # enum for input souces
 from samples.microphone import Microphone           # handle microphone
 from samples.audioFile import AudioFile             # handle audio file
 from processing.pitchTracker import PitchTracker    # tracking hi/lo of sound
 from plots.magnitude import MagnitudePlot           # magnitude subplot
 from plots.frequency import FrequencyPlot           # spectragraph subplot
 from plots.pitch import PitchPlot                   # pitch subplot
-from gui.sourceSwitch import SourceSwitch           # source input switch
-from gui.displaySwitch import DisplaySwitch         # plot display switch
 
 
 class PdaPlots(object, metaclass=Singleton):
     """Handles set of pitch detection plots."""
 
+    RELATIVE_Y = 0.1                                # top is 10% below window
+    RELATIVE_W = 1.0                                # take over entire width
+    RELATIVE_H = 0.7                                # take 70% up/down
     FONTSIZE = 16                                   # font size for title
     VERTICAL_LAYOUT = True                          # stack subplot up/down
     CLEAR_TIME = 0                                  # reset elapsed time
@@ -31,34 +28,16 @@ class PdaPlots(object, metaclass=Singleton):
     def __init__(self, win):
         """Construct object."""
         # win   window application
-
         self.__frame = tk.Frame(win)                # create frame from window
-        self.__frame.pack(anchor=tk.CENTER)         # place center of window
-        self.__frame.pack(fill=tk.BOTH)             # fill horizontal/vertical
-        self.__frame.pack(expand=tk.YES)            # fill extra window space
+        self.__frame.place(rely=self.RELATIVE_Y)    # span across
+        self.__frame.place(relwidth=self.RELATIVE_W)    # span across
+        self.__frame.place(relheight=self.RELATIVE_H)   # span up/down
         self.__subPlots = None                      # container for subplots
         self.__canvasWidget = None                  # object for math plots
         self.__pitchTracker = PitchTracker()        # pitch tracker instance
         self.__audioFile = AudioFile()              # audio file handler
         self.__microphone = Microphone()            # microphone handler
-        #self.__display = DisplaySwitch(self.__frame)    # list of plot types
         self.__elapsedTime = 0.0                    # time to track pitch
-        #if(PROCESS_FILE):                      # allow user select files
-            #self.__source = SourceSwitch(self.__frame)  # source input GUI switch
-
-    def update(self):
-        """Update the plots."""
-        self.processFile()
-        # if(PROCESS_FILE):                      # allow user select files
-        #     for case in Switch(self.__source.mode):
-        #         if case(InputSources.FILE.value):
-        #             self.processFile()
-        #             break
-        #         if case():
-        #             self.processMic()
-        # else:
-        #     self.processMic()
-
 
     def __configPlots(self):
         if self.__canvasWidget is not None:
@@ -67,27 +46,6 @@ class PdaPlots(object, metaclass=Singleton):
         self.__numPlot = 0                          # start number of subplot
         self.__subPlots = list()                    # container for subplots
         # create mag/freq/pitch plot objects and append in container
-        # for case in Switch(self.__display.mode):
-        #     if case(DisplayPlots.MAGNITUDE.value):
-        #         self.numPlots = 1                   # number subplots display
-        #         self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
-        #         break
-        #     if case(DisplayPlots.FREQUENCY.value):
-        #         self.numPlots = 1                   # number subplots display
-        #         self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
-        #         break
-        #     if case(DisplayPlots.PITCH.value):
-        #         self.numPlots = 1                   # number subplots display
-        #         self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
-        #         break
-        #     if case(DisplayPlots.ALL.value):
-        #         self.numPlots = 3                   # number subplots display
-        #         self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
-        #         self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
-        #         self.__subPlots.append(PitchPlot(self.__fig, self.__pos))
-        #         break
-        #     if case():
-        #         self.numPlots = 0
         self.numPlots = 3                   # number subplots display
         self.__subPlots.append(MagnitudePlot(self.__fig, self.__pos))
         self.__subPlots.append(FrequencyPlot(self.__fig, self.__pos))
@@ -125,19 +83,15 @@ class PdaPlots(object, metaclass=Singleton):
     def __processMic(self):
         """Recursively process microphone data until mic is deselected."""
         # keep processing while mic is selected
-        #if self.__source.mode == InputSources.MIC.value:
-        if self.__display.mode != DisplayPlots.NONE.value:
-            if self.__microphone.run():             # collect microphone data
-                self.__elapsedTime = currentTime()  # start stopwatch
-                # pass data to pitch tracker
-                self.__pitchTracker.data = self.__microphone.data
-                self.__update()  # update plots w/ latest
-                # update display to show time to window of microphone data
-                self.__updateElapsed(currentTime() - self.__elapsedTime)
-            # periodic callback to stream data to plots
-            self.__frame.master.after(self.MIC_INTERVAL, self.__processMic)
-        else:
-            self.__microphone.close()               # close microphone stream
+        if self.__microphone.run():             # collect microphone data
+            self.__elapsedTime = currentTime()  # start stopwatch
+            # pass data to pitch tracker
+            self.__pitchTracker.data = self.__microphone.data
+            self.__update()  # update plots w/ latest
+            # update display to show time to window of microphone data
+            self.__updateElapsed(currentTime() - self.__elapsedTime)
+        # periodic callback to stream data to plots
+        self.__frame.master.after(self.MIC_INTERVAL, self.__processMic)
 
     def __setElapsed(self, widget):
         """Setter for elapsed time GUI widget."""

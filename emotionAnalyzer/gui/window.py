@@ -11,6 +11,7 @@ class SEA(object):
     TITLE = 'Speech Emotion Analyzer'               # window title
     WINDOW_WIDTH = 480                              # pixels across
     WINDOW_HEIGHT = 800                             # pixels up/down
+    COLOR = 'dim gray'                              # dark theme
 
     def __init__(self):
         """Construct object."""
@@ -21,7 +22,6 @@ class SEA(object):
         self.__elapsed = ElapsedTime(self.__win)    # elapsed time object
         self.__command.plots = self.__plots         # provide plots to command
         self.__plots.elapsed = self.__elapsed       # elps-time->plot
-        self.__plots.update()                       # start diplaying plots
 
     def run(self):
         """Activate the GUI."""
@@ -40,8 +40,8 @@ class SEA(object):
     def __configure(self):
         """Initialize the look of the GUI."""
         self.__win.geometry(self.__size())          # set window size
-        self.__win.resizable()                      # allow user to resize
         self.__win.title(self.TITLE)                # title of window
+        self.__win.configure(background=self.COLOR) # background color
 
     def __size(self):
         """Return window geometry relative to screen size."""
