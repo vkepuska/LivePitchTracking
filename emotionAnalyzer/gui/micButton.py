@@ -13,18 +13,15 @@ class MicButton(CommandButton):
 
     def __init__(self, form):
         """Construct object."""
-        super().__init__()                          # call parent constructor
-        self.__button = tk.Button(master=form,
-                                  text=self.BUTTON_TEXT,
-                                  command=lambda: self.__startMic())
+        super().__init__(form=form, 
+                        bTxt=self.BUTTON_TEXT, 
+                        bCmd=lambda: self.__startMic())
         self.__configure()                          # initialize the look
 
     def __configure(self):
         """Initialize the look/location of the Button."""
-        self.__button.pack(side=tk.LEFT)            # move to left of parent
-        self.__button.configure(font=self._font)    # set common font
-        self.__button.configure(foreground=self.FOREGROUND)
-        self.__button.configure(background=self.BACKGROUND)
+        self._button.configure(foreground=self.FOREGROUND)
+        self._button.configure(background=self.BACKGROUND)
 
     def __startMic(self):
         """Open dialog window for finding/selecting file."""

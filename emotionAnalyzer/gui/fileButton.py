@@ -17,27 +17,23 @@ class FileButton(CommandButton):
 
     def __init__(self, form):
         """Construct object."""
-        super().__init__()                          # call parent constructor
-        self.__button = tk.Button(master=form,
-                                  text=self.BUTTON_TEXT,
-                                  command=lambda: self.__loadFile())
+        super().__init__(form=form,
+                         bTxt=self.BUTTON_TEXT,
+                         bCmd=lambda: self.__loadFile())
         self.__entryFile = tk.StringVar()           # static variable
         self.__audioFile = AudioFile()              # audio file handler
         self.__configure()                          # initialize the look
 
     def __configure(self):
         """Initialize the look/location of the Button."""
-
-        self.__button.pack(side=tk.RIGHT)           # right justify
-        self.__button.configure(font=self._font)
-        self.__button.configure(foreground=self.FOREGROUND)
-        self.__button.configure(background=self.BACKGROUND)
+        self._button.configure(foreground=self.FOREGROUND)
+        self._button.configure(background=self.BACKGROUND)
 
     def __loadFile(self):
         """Open dialog window for finding/selecting file."""
         value = askopenfilename(title=self.OPEN_TITLE,      # window title
                                 filetypes=self.FILE_TYPES)  # allowed file type
-        self.__entryFile.set(value)                  # update text box w/ name
+        self.__entryFile.set(value)                 # update text box w/ name
         self.__processFile(value)                   # process w/ selected file
 
     def __OnFileEntryClick(self, event):
@@ -48,4 +44,4 @@ class FileButton(CommandButton):
     def __processFile(self, value):
         """Process selected file."""
         self.__audioFile.fileName = value           # inform audio file of name
-        self._plots.processFile()                  # update plots with file
+        self._plots.processFile()                   # update plots with file

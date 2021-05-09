@@ -11,8 +11,9 @@ class CommandButton(object, metaclass=Singleton):
     FONT_SIZE = 50                                  # feight of font
     FONT_WEIGHT = 'bold'                            # boldface or normal
 
-    def __init__(self):
+    def __init__(self, form, bTxt, bCmd):
         """Construct object."""
+        self._button = tk.Button(master=form, text=bTxt, command=bCmd)
         self.__plots = None                         # plots to process file
         self.__configure()                          # initialize the look
 
@@ -22,6 +23,7 @@ class CommandButton(object, metaclass=Singleton):
         self.__font = font.Font(family=self.FONT_FAMILY, 
                                 size=self.FONT_SIZE, 
                                 weight=self.FONT_WEIGHT)
+        self._button.configure(font=self._font)    # set common font
 
     @property
     def _font(self):
@@ -39,3 +41,19 @@ class CommandButton(object, metaclass=Singleton):
 
     """Property for setting plots widget."""
     plots = property(None, __setPlots)
+
+    def relx(self,value):
+        "Set relative horizontal offset from parent widget."
+        self._button.place(relx=value)
+
+    def rely(self, value):
+        "Set relative vertical offset from parent widget."
+        self._button.place(rely=value)
+
+    def relwidth(self, value):
+        "Set relative width within parent widget."
+        self._button.place(relwidth=value)
+
+    def relheight(self, value):
+        "Set relative height within parent widget."
+        self._button.place(relheight=value)
