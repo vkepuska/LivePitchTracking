@@ -8,7 +8,7 @@ class CommandButton(object, metaclass=Singleton):
 
     # Constants
     FONT_FAMILY = 'Helvetica'                       # font used
-    FONT_SIZE = 50                                  # feight of font
+    FONT_SIZE = 30                                  # size of font
     FONT_WEIGHT = 'bold'                            # boldface or normal
 
     def __init__(self, form, bTxt, bCmd):
