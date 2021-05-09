@@ -80,6 +80,10 @@ class PdaPlots(object, metaclass=Singleton):
         self.__microphone.open()                    # open microphone stream
         self.__processMic()                         # start processing mic
 
+    def stopMic(self):
+        """Stop plots for microphone stream."""
+        self.__microphone.close()                   # close microphone stream
+
     def __processMic(self):
         """Recursively process microphone data until mic is deselected."""
         # keep processing while mic is selected
