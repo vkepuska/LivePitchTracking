@@ -1,6 +1,7 @@
 import tkinter as tk                                # GUI toolkit
 from gui.commandButton import CommandButton         # parent for press buttons
 from tkinter.filedialog import askopenfilename      # creates file dialog
+from samples.microphone import Microphone
 
 class MicButton(CommandButton):
     """Class for selecting sound file."""
@@ -22,8 +23,12 @@ class MicButton(CommandButton):
 
     def __configure(self):
         """Initialize the look/location of the Button."""
-        self._button.configure(foreground=self.FOREGROUND)
-        self._button.configure(background=self.START_COLOR)
+        self.__mic = Microphone()
+        if self.__mic.enabled:
+            self._button.configure(foreground=self.FOREGROUND)
+            self._button.configure(background=self.START_COLOR)
+        else:
+            self._button['state'] = 'disabled'
 
     def __toggleMic(self):
         """Toggle the microphone button to start/stop it."""

@@ -16,8 +16,10 @@ class Microphone(object, metaclass=Singleton):
         """Construct object."""
         try:
             import pyaudio as pa                # API to access mic stream
+            self.__enabled = True               # microphone can be accessed
         except ImportError:
             import stub.pyaudio as pa           # temporary stub till work on Android
+            self.__enabled = False              # microphone cannot be accessed
         self.FORMAT = pa.paInt16                # data type
         self.__audio = pa.PyAudio()             # microphone object
         self.__stream = None                    # stream object
@@ -56,6 +58,11 @@ class Microphone(object, metaclass=Singleton):
     def data(self):
         """Get data samples."""
         return self.__buffer                    # buffer of mic samples
+
+    @property
+    def enabled(self):
+        """Determined if microphone is enabled."""
+        return self.__enabled                   # state of microphone
 
     def __open(self):
         """Instantiate stream object."""
