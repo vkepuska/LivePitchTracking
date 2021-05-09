@@ -18,26 +18,20 @@ class FileButton(CommandButton):
     def __init__(self, form):
         """Construct object."""
         super().__init__()                          # call parent constructor
-        self.__frame = tk.Frame(form)               # create frame widge
+        self.__button = tk.Button(master=form,
+                                  text=self.BUTTON_TEXT,
+                                  command=lambda: self.__loadFile())
+        self.__entryFile = tk.StringVar()           # static variable
         self.__audioFile = AudioFile()              # audio file handler
         self.__configure()                          # initialize the look
 
     def __configure(self):
         """Initialize the look/location of the Button."""
-        # text box entry widget
-        self.__entryFile = tk.StringVar()           # static variable
 
-        # file dialog button
-        self.__button = tk.Button(master=self.__frame,      # parent widget
-                                  text=self.BUTTON_TEXT,    # display text
-                                  command=lambda: self.__loadFile())  # calback
         self.__button.pack(side=tk.RIGHT)           # right justify
         self.__button.configure(font=self._font)
         self.__button.configure(foreground=self.FOREGROUND)
         self.__button.configure(background=self.BACKGROUND)
-        # move widgets within parent
-        self.__frame.pack(side=tk.RIGHT)            # move to right of parent
-        self.__frame.pack(padx=self.PADX)           # space between widget l/r
 
     def __loadFile(self):
         """Open dialog window for finding/selecting file."""
