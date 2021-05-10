@@ -1,6 +1,7 @@
 import tkinter as tk                                # GUI toolkit
 from gui.commandForm import CommandForm             # controls for PDA widget
 from plots.pdaPlots import PdaPlots                 # sound plots widget
+from gui.emotionForm import EmotionForm             # display emotions
 from gui.elapsedTime import ElapsedTime             # processing time widget
 
 
@@ -19,6 +20,7 @@ class SEA(object):
         self.__configure()                          # initialize the look
         self.__command = CommandForm(self.__win)    # command form object
         self.__plots = PdaPlots(self.__win)         # auditory plots object
+        self.__emotions = EmotionForm(self.__win)   # emotion form object
         self.__elapsed = ElapsedTime(self.__win)    # elapsed time object
         self.__command.plots = self.__plots         # provide plots to command
         self.__plots.elapsed = self.__elapsed       # elps-time->plot
