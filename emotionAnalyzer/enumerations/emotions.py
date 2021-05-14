@@ -10,7 +10,7 @@ class Emotion(Enum):
     ANGRY       = 4             # infuriated
     FEARFUL     = 5             # anxiety
     DISGUST     = 6             # revulsion
-    SURPRISED   = 7             # astonished
+    SUPRISED    = 7             # astonished
 
 
 class Intensity(Enum):

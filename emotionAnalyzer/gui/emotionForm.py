@@ -52,43 +52,39 @@ class EmotionForm(object):
 
     def __loadEmotions(self):
         self.__emotion = []
-        self.__emotion.insert(Emotion.NEUTRAL.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.NEUTRAL+self.EXTENSION)))
-        self.__emotion.insert(Emotion.CALM.value,
-                            ImageTk.PhotoImage(Image.open(self.FOLDER+self.CALM+self.EXTENSION)))
-        self.__emotion.insert(Emotion.HAPPY.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.HAPPY+self.EXTENSION)))
-        self.__emotion.insert(Emotion.SAD.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.SAD+self.EXTENSION)))
-        self.__emotion.insert(Emotion.ANGRY.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.ANGRY+self.EXTENSION)))
-        self.__emotion.insert(Emotion.FEARFUL.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.FEARFUL+self.EXTENSION)))
-        self.__emotion.insert(Emotion.DISGUST.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.DISGUST+self.EXTENSION)))
-        self.__emotion.insert(Emotion.SURPRISED.value,
-                              ImageTk.PhotoImage(Image.open(self.FOLDER+self.SURPRISED+self.EXTENSION)))
+        self.__emotion.insert(Emotion.NEUTRAL.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.NEUTRAL.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.CALM.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.CALM.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.HAPPY.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.HAPPY.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.SAD.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.SAD.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.ANGRY.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.ANGRY.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.FEARFUL.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.FEARFUL.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.DISGUST.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.DISGUST.name+self.EXTENSION)))
+        self.__emotion.insert(Emotion.SUPRISED.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Emotion.SUPRISED.name+self.EXTENSION)))
 
     def __loadIntensity(self):
         self.__intensity = []
-        self.__intensity.insert(Intensity.NORMAL.value,
-                                ImageTk.PhotoImage(Image.open(self.FOLDER+self.NORMAL+self.EXTENSION)))
-        self.__intensity.insert(Intensity.STRONG.value,
-                                ImageTk.PhotoImage(Image.open(self.FOLDER+self.STRONG+self.EXTENSION)))
+        self.__intensity.insert(Intensity.NORMAL.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Intensity.NORMAL.name+self.EXTENSION)))
+        self.__intensity.insert(Intensity.STRONG.value, ImageTk.PhotoImage(
+            Image.open(self.FOLDER+Intensity.STRONG.name+self.EXTENSION)))
 
     def __widgets(self):
         """Create widgets contained in Form."""
-        self.__emotionIcon = tk.Label(self.__frame,
-                                   image=self.__emotion[Emotion.NEUTRAL.value])
+        self.__emotionIcon = tk.Label(self.__frame, image=self.__emotion[Emotion.NEUTRAL.value])
         self.__emotionIcon.pack(side=tk.LEFT)
 
-        self.__intensityIcon = tk.Label(self.__frame,
-                              image=self.__intensity[Intensity.NORMAL.value])
+        self.__intensityIcon = tk.Label(self.__frame, image=self.__intensity[Intensity.NORMAL.value])
         self.__intensityIcon.pack(side=tk.LEFT)
 
-        self.__font = font.Font(family=self.FONT_FAMILY,
-                                size=self.FONT_SIZE,
-                                weight=self.FONT_WEIGHT)
+        self.__font = font.Font(family=self.FONT_FAMILY, size=self.FONT_SIZE, weight=self.FONT_WEIGHT)
         self.__emotionFrame = tk.Frame(self.__frame)
         self.__emotionFrame.pack(side=tk.TOP)
         self.__emotionText = tk.Label(self.__emotionFrame, text='Emotion: ')
