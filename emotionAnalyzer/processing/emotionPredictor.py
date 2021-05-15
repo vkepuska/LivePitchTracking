@@ -2,7 +2,7 @@ from patterns.singleton import Singleton            # design pattern (one instan
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 from gui.emotionForm import EmotionForm             # display emotion intensity
-from predictions.predictorv0 import predict_emotion
+#from predictions.predictorv0 import predict_emotion
 
 class EmotionPredictor(object, metaclass=Singleton):
     def __init__(self):
@@ -10,8 +10,8 @@ class EmotionPredictor(object, metaclass=Singleton):
         self.__getEmotionForm()
 
     def predict(self, filename):
-        results = predict_emotion(filename)
-        print(results)
+        #results = predict_emotion(filename)
+        #print(results)
         self.__updateEmotion()
 
     def __getEmotionForm(self):
