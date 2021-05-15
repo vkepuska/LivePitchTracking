@@ -2,6 +2,7 @@ import tkinter as tk                                # GUI toolkit
 from gui.commandButton import CommandButton         # parent for press buttons
 from tkinter.filedialog import askopenfilename      # creates file dialog
 from samples.audioFile import AudioFile             # handle audio file
+from processing.emotionPredictor import EmotionPredictor
 
 class FileButton(CommandButton):
     """Class for selecting sound file."""
@@ -23,6 +24,7 @@ class FileButton(CommandButton):
         self.__entryFile = tk.StringVar()           # static variable
         self.__audioFile = AudioFile()              # audio file handler
         self.__configure()                          # initialize the look
+        self.__emotionPredictor = EmotionPredictor()
 
     def __configure(self):
         """Initialize the look/location of the Button."""
@@ -45,3 +47,4 @@ class FileButton(CommandButton):
         """Process selected file."""
         self.__audioFile.fileName = value           # inform audio file of name
         self._plots.processFile()                   # update plots with file
+        self.__emotionPredictor.predict(value)

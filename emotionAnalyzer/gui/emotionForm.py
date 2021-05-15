@@ -1,10 +1,10 @@
 import tkinter as tk                                # GUI toolkit
 import tkinter.font as font                         # font parameters
-from PIL import ImageTk
-from PIL import Image
+from PIL import ImageTk                             # create/modify Tkinter image
+from PIL import Image                               # represent a PIL image 
 from patterns.singleton import Singleton            # design pattern (one instance)
-from universal.constants import WINDOW_HEIGHT
-from universal.constants import WINDOW_WIDTH
+from universal.constants import WINDOW_HEIGHT       # height of application
+from universal.constants import WINDOW_WIDTH        # width of application
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 
