@@ -24,22 +24,22 @@ class EmotionForm(object):
     EXTENSION = '.png'                          # image type extension
     DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
     DEFAULT_INTENSITY = Intensity.NORMAL        # intensity to load at start
-    FRAME_W = 0.5
-    FRAME_RELY = 0.0
-    FRAME_RELX_E = 0.0
-    FRAME_RELX_I = 0.5
-    FRAME_TEXT_H = 0.1
-    FULL_H = 1.0
+    FRAME_W = 0.5                               # split boundary in half for type
+    FRAME_RELY = 0.0                            # start from top within e/i frame
+    FRAME_RELX_E = 0.0                          # emotion is on left
+    FRAME_RELX_I = 0.5                          # intensity is on right
+    FRAME_TEXT_H = 0.1                          # text is 10% of e/i frame
+    FULL_H = 1.0                                # full height is 100%
 
     def __init__(self, win):
         """Construct object."""
         # win   window application
         self.__frame = tk.Frame(win)                # create frame from window
-        self.__loadEmotions()
-        self.__loadIntensity()
+        self.__loadEmotions()                       # add emotion icons
+        self.__loadIntensity()                      # add intensity icons
         self.__widgets()                            # add widgets
         self.__configure()                          # initialize the look
-        self.__setDefault()
+        self.__setDefault()                         # startup values
 
     def __configure(self):
         """Initialize the look/location of the Form."""
@@ -70,7 +70,9 @@ class EmotionForm(object):
     def __insert(self,container,icon):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
+        # span half of window
         imgWidth = int(WINDOW_WIDTH/2.0)
+        # try to span e/i frame
         imgHeight = int(WINDOW_HEIGHT*(self.RELH*(1-self.FRAME_TEXT_H)))
         resizedImg = img.resize((imgWidth, imgHeight), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
@@ -99,6 +101,7 @@ class EmotionForm(object):
         self.__emodicons()
 
     def __text(self):
+        """Configure the e/i descriptions."""
         self.__font = font.Font(family=self.FONT_FAMILY,
                                 size=self.FONT_SIZE, 
                                 weight=self.FONT_WEIGHT)
@@ -106,6 +109,7 @@ class EmotionForm(object):
         self.__configureIntensityText()
 
     def __configureEmotionText(self):
+        """Configure the emotion description."""
         frame = tk.Frame(self.__frame)
         frame.place(rely=self.FRAME_RELY)
         frame.place(relx=self.FRAME_RELX_E)
@@ -116,6 +120,7 @@ class EmotionForm(object):
         self.__emotionText.configure(font=self.__font)
 
     def __configureIntensityText(self):
+        """Configure the intensity description."""
         frame = tk.Frame(self.__frame)
         frame.place(rely=self.FRAME_RELY)
         frame.place(relx=self.FRAME_RELX_I)
@@ -126,10 +131,12 @@ class EmotionForm(object):
         self.__intensityText.configure(font=self.__font)
 
     def __emodicons(self):
+        """Configure the emodicons."""
         self.__configureEmotionIcon()
         self.__configureIntensityIcon()
 
     def __configureEmotionIcon(self):
+        """Configure the emotion emodicons."""
         frame = tk.Frame(self.__frame)
         frame.place(rely=self.FRAME_RELY+self.FRAME_TEXT_H)
         frame.place(relx=self.FRAME_RELX_E)
@@ -140,6 +147,7 @@ class EmotionForm(object):
         self.__emotionIcon.configure(anchor=tk.CENTER)
 
     def __configureIntensityIcon(self):
+        """Configure the intensity emodicons."""
         frame = tk.Frame(self.__frame)
         frame.place(rely=self.FRAME_RELY+self.FRAME_TEXT_H)
         frame.place(relx=self.FRAME_RELX_I)
