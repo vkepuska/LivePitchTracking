@@ -2,13 +2,14 @@ import tkinter as tk                                # GUI toolkit
 import tkinter.font as font                         # font parameters
 from PIL import ImageTk
 from PIL import Image
+from patterns.singleton import Singleton            # design pattern (one instance)
 from universal.constants import WINDOW_HEIGHT
 from universal.constants import WINDOW_WIDTH
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 
 
-class EmotionForm(object):
+class EmotionForm(object, metaclass=Singleton):
     """Manages the window form for controlling the GUI."""
 
     # Constants
