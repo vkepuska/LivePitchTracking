@@ -57,7 +57,8 @@ class EmotionForm(object, metaclass=Singleton):
 
     def emotion(self, emotion):
         """Set emotion text and icon."""
-        text = 'Emotion: {}'.format(emotion.name)
+        text = 'Emotion: {} {}x{}'.format(
+            emotion.name, self.__imgWidth, self.__imgHeight)
         self.__emotionText.configure(text=text)
         self.__emotionIcon.configure(image=self.__emotion[emotion.value])
 
@@ -72,10 +73,11 @@ class EmotionForm(object, metaclass=Singleton):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
         # span half of window
-        imgWidth = int(WINDOW_WIDTH/2.0)
+        self.__imgWidth = int(WINDOW_WIDTH/2.0)
         # try to span e/i frame
-        imgHeight = int(WINDOW_HEIGHT*(self.RELH*(1-self.FRAME_TEXT_H)))
-        resizedImg = img.resize((imgWidth, imgHeight), Image.ANTIALIAS)
+        self.__imgHeight = int(WINDOW_HEIGHT*(self.RELH*(1-self.FRAME_TEXT_H)))
+        resizedImg = img.resize(
+            (self.__imgWidth, self.__imgHeight), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
 
     def __loadEmotions(self):
