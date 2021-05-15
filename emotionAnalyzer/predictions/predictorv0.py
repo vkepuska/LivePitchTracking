@@ -1,4 +1,7 @@
-import pyaudio
+try:
+    import pyaudio                          # API to access mic stream
+except ImportError:
+    import stub.pyaudio as pyaudio          # temporary stub till work on Android
 import os
 import wave
 import pickle
