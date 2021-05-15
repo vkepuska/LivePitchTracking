@@ -102,7 +102,7 @@ class PdaPlots(object, metaclass=Singleton):
         # widget    GUI widget for elapsed time display
         self.__elapsed = widget                     # set elapsed time widget
 
-    """Property for setting elapsed timet."""
+    """Property for setting elapsed time."""
     elapsed = property(None, __setElapsed)
 
     @property
