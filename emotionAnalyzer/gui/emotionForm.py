@@ -22,8 +22,14 @@ class EmotionForm(object):
     RELH = 0.3                                  # span last segment
     FOLDER = 'image/'                           # location of emoticons
     EXTENSION = '.png'                          # image type extension
-    DEFAULT_EMOTION = 0                         # emotion to load at start
-    DEFAULT_INTENSITY = 0                       # intensity to load at start
+    DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
+    DEFAULT_INTENSITY = Intensity.NORMAL        # intensity to load at start
+    FRAME_W = 0.5
+    FRAME_RELY = 0.0
+    FRAME_RELX_E = 0.0
+    FRAME_RELX_I = 0.5
+    FRAME_TEXT_H = 0.1
+    FULL_H = 1.0
 
     def __init__(self, win):
         """Construct object."""
@@ -33,6 +39,7 @@ class EmotionForm(object):
         self.__loadIntensity()
         self.__widgets()                            # add widgets
         self.__configure()                          # initialize the look
+        self.__setDefault()
 
     def __configure(self):
         """Initialize the look/location of the Form."""
@@ -42,11 +49,30 @@ class EmotionForm(object):
         self.__frame.place(relwidth=self.RELW)
         self.__frame.place(relheight=self.RELH)
 
+    def __setDefault(self):
+        """Set default text and icon for startup."""
+        self.emotion(self.DEFAULT_EMOTION)
+        self.intensity(self.DEFAULT_INTENSITY)
+
+    def emotion(self, emotion):
+        """Set emotion text and icon."""
+        text = 'Emotion: {}'.format(emotion.name)
+        self.__emotionText.configure(text=text)
+        self.__emotionIcon.configure(image=self.__emotion[emotion.value])
+
+
+    def intensity(self, intensity):
+        """Set emotion text and icon."""
+        text = 'Intensity: {}'.format(intensity.name)
+        self.__intensityText.configure(text=text)
+        self.__intensityIcon.configure(image=self.__intensity[intensity.value])
+
     def __insert(self,container,icon):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
         imgWidth = int(WINDOW_WIDTH/2.0)
-        resizedImg = img.resize((imgWidth, imgWidth), Image.ANTIALIAS)
+        imgHeight = int(WINDOW_HEIGHT*(self.RELH*(1-self.FRAME_TEXT_H)))
+        resizedImg = img.resize((imgWidth, imgHeight), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
 
     def __loadEmotions(self):
@@ -74,42 +100,51 @@ class EmotionForm(object):
 
     def __text(self):
         self.__font = font.Font(family=self.FONT_FAMILY,
-                                size=self.FONT_SIZE, weight=self.FONT_WEIGHT)
-        self.__emotionTextFrame = tk.Frame(self.__frame)
-        self.__emotionTextFrame.place(relx=0.0)
-        self.__emotionTextFrame.place(rely=0.0)
-        self.__emotionTextFrame.place(relwidth=0.5)
-        self.__emotionTextFrame.place(relheight=0.1)
-        self.__emotionText = tk.Label(
-            self.__emotionTextFrame, text='Emotion')
+                                size=self.FONT_SIZE, 
+                                weight=self.FONT_WEIGHT)
+        self.__configureEmotionText()
+        self.__configureIntensityText()
+
+    def __configureEmotionText(self):
+        frame = tk.Frame(self.__frame)
+        frame.place(rely=self.FRAME_RELY)
+        frame.place(relx=self.FRAME_RELX_E)
+        frame.place(relwidth=self.FRAME_W)
+        frame.place(relheight=self.FRAME_TEXT_H)
+        self.__emotionText = tk.Label(frame)
         self.__emotionText.grid(row=0, column=0)
         self.__emotionText.configure(font=self.__font)
 
-        self.__intensityTextFrame = tk.Frame(self.__frame)
-        self.__intensityTextFrame.place(relx=0.5)
-        self.__intensityTextFrame.place(rely=0.0)
-        self.__intensityTextFrame.place(relwidth=0.5)
-        self.__intensityTextFrame.place(relheight=0.1)
-        self.__intensityText = tk.Label(
-            self.__intensityTextFrame, text='Intensity')
+    def __configureIntensityText(self):
+        frame = tk.Frame(self.__frame)
+        frame.place(rely=self.FRAME_RELY)
+        frame.place(relx=self.FRAME_RELX_I)
+        frame.place(relwidth=self.FRAME_W)
+        frame.place(relheight=self.FRAME_TEXT_H)
+        self.__intensityText = tk.Label(frame)
         self.__intensityText.grid(row=0, column=0)
         self.__intensityText.configure(font=self.__font)
 
     def __emodicons(self):
-        self.__emotionIconFrame = tk.Frame(self.__frame)
-        self.__emotionIconFrame.place(relx=0.0)
-        self.__emotionIconFrame.place(rely=0.1)
-        self.__emotionIconFrame.place(relwidth=0.5)
-        self.__emotionIconFrame.place(relheight=1.0)
-        self.__emotionIcon = tk.Label(self.__emotionIconFrame, image=self.__emotion[self.DEFAULT_EMOTION])
+        self.__configureEmotionIcon()
+        self.__configureIntensityIcon()
+
+    def __configureEmotionIcon(self):
+        frame = tk.Frame(self.__frame)
+        frame.place(rely=self.FRAME_RELY+self.FRAME_TEXT_H)
+        frame.place(relx=self.FRAME_RELX_E)
+        frame.place(relwidth=self.FRAME_W)
+        frame.place(relheight=self.FULL_H-self.FRAME_TEXT_H)
+        self.__emotionIcon = tk.Label(frame)
         self.__emotionIcon.grid(row=0, column=0)
         self.__emotionIcon.configure(anchor=tk.CENTER)
 
-        self.__intensityIconFrame = tk.Frame(self.__frame)
-        self.__intensityIconFrame.place(relx=0.5)
-        self.__intensityIconFrame.place(rely=0.1)
-        self.__intensityIconFrame.place(relwidth=0.5)
-        self.__intensityIconFrame.place(relheight=1.0)
-        self.__intensityIcon = tk.Label(self.__intensityIconFrame, image=self.__intensity[self.DEFAULT_INTENSITY])
+    def __configureIntensityIcon(self):
+        frame = tk.Frame(self.__frame)
+        frame.place(rely=self.FRAME_RELY+self.FRAME_TEXT_H)
+        frame.place(relx=self.FRAME_RELX_I)
+        frame.place(relwidth=self.FRAME_W)
+        frame.place(relheight=self.FULL_H-self.FRAME_TEXT_H)
+        self.__intensityIcon = tk.Label(frame)
         self.__intensityIcon.grid(row=0, column=0)
         self.__intensityIcon.configure(anchor=tk.CENTER)
