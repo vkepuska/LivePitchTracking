@@ -7,7 +7,7 @@ from array import array
 from struct import pack
 from sklearn.neural_network import MLPClassifier
 
-from utils import extract_feature
+from predictions.utils import extract_feature
 import text2emotion as te
 
 THRESHOLD = 500
@@ -124,7 +124,7 @@ def record_to_file(path):
 
 def predict_emotion(filename):
     # load the saved model (after training)
-    model = pickle.load(open("basic.model", "rb"))
+    model = pickle.load(open("predictions/basic.model", "rb"))
     features = extract_feature(filename, mfcc=True, chroma=True, mel=True).reshape(1, -1)
     result = model.predict(features)[0]
 
