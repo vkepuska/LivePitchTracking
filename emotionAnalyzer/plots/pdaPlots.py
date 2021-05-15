@@ -18,7 +18,7 @@ class PdaPlots(object, metaclass=Singleton):
 
     RELATIVE_Y = 0.1                                # top is 10% below window
     RELATIVE_W = 1.0                                # take over entire width
-    RELATIVE_H = 0.7                                # take 70% up/down
+    RELATIVE_H = 0.6                                # take 70% up/down
     FONTSIZE = 16                                   # font size for title
     VERTICAL_LAYOUT = True                          # stack subplot up/down
     CLEAR_TIME = 0                                  # reset elapsed time

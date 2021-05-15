@@ -1,5 +1,6 @@
 import tkinter as tk                                # GUI toolkit
-import tkinter.font as font                     # font parameters
+from tkinter import Canvas
+import tkinter.font as font                         # font parameters
 from PIL import ImageTk
 from PIL import Image
 from enumerations.emotions import Emotion           # available emotions
@@ -11,13 +12,13 @@ class EmotionForm(object):
 
     # Constants
     FONT_FAMILY = 'Helvetica'                   # font used
-    FONT_SIZE = 16                              # size of font
+    FONT_SIZE = 12                              # size of font
     FONT_WEIGHT = 'bold'                        # boldface or normal
     COLOR = 'snow3'                             # background color
     RELX = 0.0                                  # far left
-    RELY = 0.8                                  # near bottom
+    RELY = 0.7                                  # near bottom
     RELW = 1.0                                  # span across
-    RELH = 0.2                                  # span last segment
+    RELH = 0.3                                  # span last segment
     FOLDER = 'image/'                           # location of emoticons
     EXTENSION = '.png'                          # image type extension
     DEFAULT_EMOTION = 0                         # emotion to load at start
@@ -42,8 +43,9 @@ class EmotionForm(object):
 
     def __insert(self,container,icon):
         """Insert images into container"""
-        container.insert(icon.value, ImageTk.PhotoImage(
-            Image.open(self.FOLDER+icon.name+self.EXTENSION)))
+        img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
+        resizedImg = img.resize((240, 240), Image.ANTIALIAS)
+        container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
 
     def __loadEmotions(self):
         """Load emotion images into container."""
@@ -65,18 +67,47 @@ class EmotionForm(object):
 
     def __widgets(self):
         """Create widgets contained in Form."""
-        self.__emotionIcon = tk.Label(self.__frame, image=self.__emotion[self.DEFAULT_EMOTION])
-        self.__emotionIcon.pack(side=tk.LEFT)
+        self.__text()
+        self.__emodicons()
 
-        self.__intensityIcon = tk.Label(self.__frame, image=self.__intensity[self.DEFAULT_INTENSITY])
-        self.__intensityIcon.pack(side=tk.LEFT)
-
-        self.__font = font.Font(family=self.FONT_FAMILY, size=self.FONT_SIZE, weight=self.FONT_WEIGHT)
-        self.__emotionFrame = tk.Frame(self.__frame)
-        self.__emotionFrame.pack(side=tk.TOP)
-        self.__emotionText = tk.Label(self.__emotionFrame, text='Emotion: ')
-        self.__emotionText.grid(row=0,column=0)
+    def __text(self):
+        self.__font = font.Font(family=self.FONT_FAMILY,
+                                size=self.FONT_SIZE, weight=self.FONT_WEIGHT)
+        self.__emotionTextFrame = tk.Frame(self.__frame)
+        self.__emotionTextFrame.place(relx=0.0)
+        self.__emotionTextFrame.place(rely=0.0)
+        self.__emotionTextFrame.place(relwidth=0.5)
+        self.__emotionTextFrame.place(relheight=0.1)
+        self.__emotionText = tk.Label(
+            self.__emotionTextFrame, text='Emotion')
+        self.__emotionText.grid(row=0, column=0)
         self.__emotionText.configure(font=self.__font)
-        self.__intensityText = tk.Label(self.__emotionFrame, text='Intensity: ')
-        self.__intensityText.grid(row=1, column=0)
+
+        self.__intensityTextFrame = tk.Frame(self.__frame)
+        self.__intensityTextFrame.place(relx=0.5)
+        self.__intensityTextFrame.place(rely=0.0)
+        self.__intensityTextFrame.place(relwidth=0.5)
+        self.__intensityTextFrame.place(relheight=0.1)
+        self.__intensityText = tk.Label(
+            self.__intensityTextFrame, text='Intensity')
+        self.__intensityText.grid(row=0, column=0)
         self.__intensityText.configure(font=self.__font)
+
+    def __emodicons(self):
+        self.__emotionIconFrame = tk.Frame(self.__frame)
+        self.__emotionIconFrame.place(relx=0.0)
+        self.__emotionIconFrame.place(rely=0.1)
+        self.__emotionIconFrame.place(relwidth=0.5)
+        self.__emotionIconFrame.place(relheight=1.0)
+        self.__emotionIcon = tk.Label(self.__emotionIconFrame, image=self.__emotion[self.DEFAULT_EMOTION])
+        self.__emotionIcon.grid(row=0, column=0)
+        self.__emotionIcon.configure(anchor=tk.CENTER)
+
+        self.__intensityIconFrame = tk.Frame(self.__frame)
+        self.__intensityIconFrame.place(relx=0.5)
+        self.__intensityIconFrame.place(rely=0.1)
+        self.__intensityIconFrame.place(relwidth=0.5)
+        self.__intensityIconFrame.place(relheight=1.0)
+        self.__intensityIcon = tk.Label(self.__intensityIconFrame, image=self.__intensity[self.DEFAULT_INTENSITY])
+        self.__intensityIcon.grid(row=0, column=0)
+        self.__intensityIcon.configure(anchor=tk.CENTER)
