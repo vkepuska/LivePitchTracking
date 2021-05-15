@@ -7,3 +7,9 @@ DATA_TYPE = 'int16'                         # sample type (16-bit integer)
 # calculated values
 FRAME_DURATION = FRAME_PERIOD / 1000        # fraction of second for frame
 FRAME_LENGTH = round(FRAME_DURATION * FS)   # num samples in analysis window
+
+# default window size
+DEFAULT_WINDOW_WIDTH = 480                  # pixels across
+WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH         # pixels across
+DEFAULT_WINDOW_HEIGHT = 800                 # pixels up/down
+WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT       # pixels up/down

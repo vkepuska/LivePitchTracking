@@ -1,8 +1,9 @@
 import tkinter as tk                                # GUI toolkit
-from tkinter import Canvas
 import tkinter.font as font                         # font parameters
 from PIL import ImageTk
 from PIL import Image
+from universal.constants import WINDOW_HEIGHT
+from universal.constants import WINDOW_WIDTH
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 
@@ -44,7 +45,8 @@ class EmotionForm(object):
     def __insert(self,container,icon):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
-        resizedImg = img.resize((240, 240), Image.ANTIALIAS)
+        imgWidth = int(WINDOW_WIDTH/2.0)
+        resizedImg = img.resize((imgWidth, imgWidth), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
 
     def __loadEmotions(self):

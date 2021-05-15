@@ -1,4 +1,8 @@
 import tkinter as tk                                # GUI toolkit
+from universal.constants import DEFAULT_WINDOW_WIDTH
+from universal.constants import WINDOW_WIDTH
+from universal.constants import DEFAULT_WINDOW_HEIGHT
+from universal.constants import WINDOW_HEIGHT
 from gui.commandForm import CommandForm             # controls for PDA widget
 from plots.pdaPlots import PdaPlots                 # sound plots widget
 from gui.emotionForm import EmotionForm             # display emotions
@@ -10,8 +14,6 @@ class SEA(object):
 
     # Constants
     TITLE = 'Speech Emotion Analyzer'               # window title
-    WINDOW_WIDTH = 480                              # pixels across
-    WINDOW_HEIGHT = 800                             # pixels up/down
     COLOR = 'dim gray'                              # dark theme
 
     def __init__(self):
@@ -29,16 +31,6 @@ class SEA(object):
         """Activate the GUI."""
         self.__win.mainloop()
 
-    @property
-    def width(self):
-        """Returns width of GUI window."""
-        return self.__windowWidth
-
-    @property
-    def height(self):
-        """Returns width of GUI window."""
-        return self.__windowHeight
-
     def __configure(self):
         """Initialize the look of the GUI."""
         self.__win.geometry(self.__size())          # set window size
@@ -52,14 +44,13 @@ class SEA(object):
         screenHeight = self.__win.winfo_screenheight()  # get screen height
 
         # set window size to be within screen
-        if screenWidth > screenHeight:
-            # set window size to be within screen
-            self.__windowWidth = self.WINDOW_WIDTH      # win width
-            self.__windowHeight = self.WINDOW_HEIGHT    # win height
+        if screenWidth < screenHeight:
+            # for portrait mode, take over entire screen
+            WINDOW_WIDTH = screenWidth            # win width
+            WINDOW_HEIGHT = screenHeight          # win height
         else:
-            # for mobile device, take over entire screen
-            self.__windowWidth = screenWidth            # win width
-            self.__windowHeight = screenHeight          # win height
+            WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH            # win width
+            WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT          # win height
 
         # format to string that for geometry call
-        return "{}x{}".format(self.__windowWidth, self.__windowHeight)
+        return "{}x{}".format(WINDOW_WIDTH, WINDOW_HEIGHT)
