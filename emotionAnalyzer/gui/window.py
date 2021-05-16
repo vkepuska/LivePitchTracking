@@ -1,15 +1,13 @@
 import tkinter as tk                                # GUI toolkit
-from universal.constants import DEFAULT_WINDOW_WIDTH
-from universal.constants import WINDOW_WIDTH
-from universal.constants import DEFAULT_WINDOW_HEIGHT
-from universal.constants import WINDOW_HEIGHT
+from patterns.singleton import Singleton            # design pattern (one instance)
+from universal.measures import Gui
 from gui.commandForm import CommandForm             # controls for PDA widget
 from plots.pdaPlots import PdaPlots                 # sound plots widget
 from gui.emotionForm import EmotionForm             # display emotions
 from gui.elapsedTime import ElapsedTime             # processing time widget
 
 
-class SEA(object):
+class SEA(object, metaclass=Singleton):
     """Set up and manage the graphical interface."""
 
     # Constants
@@ -19,6 +17,7 @@ class SEA(object):
     def __init__(self):
         """Construct object."""
         self.__win = tk.Tk()                        # GUI object
+        self.__gui = Gui()
         self.__configure()                          # initialize the look
         self.__command = CommandForm(self.__win)    # command form object
         self.__plots = PdaPlots(self.__win)         # auditory plots object
@@ -46,11 +45,8 @@ class SEA(object):
         # set window size to be within screen
         if screenWidth < screenHeight:
             # for portrait mode, take over entire screen
-            WINDOW_WIDTH = screenWidth            # win width
-            WINDOW_HEIGHT = screenHeight          # win height
-        else:
-            WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH            # win width
-            WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT          # win height
+            self.__gui.width = screenWidth            # win width
+            self.__gui.height = screenHeight          # win height
 
         # format to string that for geometry call
-        return "{}x{}".format(WINDOW_WIDTH, WINDOW_HEIGHT)
+        return "{}x{}".format(self.__gui.width, self.__gui.height)

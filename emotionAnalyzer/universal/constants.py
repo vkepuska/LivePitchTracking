@@ -10,6 +10,11 @@ FRAME_LENGTH = round(FRAME_DURATION * FS)   # num samples in analysis window
 
 # default window size
 DEFAULT_WINDOW_WIDTH = 480                  # pixels across
-WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH         # pixels across
 DEFAULT_WINDOW_HEIGHT = 800                 # pixels up/down
-WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT       # pixels up/down
+
+class WINDOW(object):
+    def __init__(self):
+        self.__width = DEFAULT_WINDOW_WIDTH
+        self.__height = DEFAULT_WINDOW_HEIGHT
+
+    

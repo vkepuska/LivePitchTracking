@@ -3,8 +3,7 @@ import tkinter.font as font                         # font parameters
 from PIL import ImageTk                             # create/modify Tkinter image
 from PIL import Image                               # represent a PIL image 
 from patterns.singleton import Singleton            # design pattern (one instance)
-from universal.constants import WINDOW_HEIGHT       # height of application
-from universal.constants import WINDOW_WIDTH        # width of application
+from universal.measures import Gui
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 
@@ -35,6 +34,7 @@ class EmotionForm(object, metaclass=Singleton):
     def __init__(self, win):
         """Construct object."""
         # win   window application
+        self.__window = Gui()                       # instantiate GUI
         self.__frame = tk.Frame(win)                # create frame from window
         self.__loadEmotions()                       # add emotion icons
         self.__loadIntensity()                      # add intensity icons
@@ -73,9 +73,10 @@ class EmotionForm(object, metaclass=Singleton):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
         # span half of window
-        self.__imgWidth = int(WINDOW_WIDTH/2.0)
+        self.__imgWidth = int(self.__window.width/2.0)
         # try to span e/i frame
-        self.__imgHeight = int(WINDOW_HEIGHT*(self.RELH*(1-self.FRAME_TEXT_H)))
+        scale = self.RELH*(1-self.FRAME_TEXT_H)
+        self.__imgHeight = int(self.__window.height*scale)
         resizedImg = img.resize(
             (self.__imgWidth, self.__imgHeight), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
