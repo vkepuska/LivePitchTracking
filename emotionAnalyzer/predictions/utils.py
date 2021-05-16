@@ -7,7 +7,7 @@ import numpy as np
 try:
     import librosa
 except ImportError:
-    import stub.librosa
+    import stub.librosa as librosa
 import glob
 import os
 from sklearn.model_selection import train_test_split
