@@ -15,7 +15,7 @@ class Gui(object, metaclass=Singleton):
 
     @width.setter
     def width(self, value):
-        self.__width
+        self.__width = value
 
     @property
     def height(self):
@@ -24,4 +24,4 @@ class Gui(object, metaclass=Singleton):
 
     @height.setter
     def height(self, value):
-        self.__height
+        self.__height = value
