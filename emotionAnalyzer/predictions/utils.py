@@ -1,4 +1,8 @@
-import soundfile
+try:
+    import soundfile
+except ImportError:
+    # temporary stub till work on Android
+    import stub.soundfile as soundfile
 import numpy as np
 import librosa
 import glob
