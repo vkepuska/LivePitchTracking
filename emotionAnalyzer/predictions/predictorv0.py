@@ -1,7 +1,8 @@
 try:
-    import pyaudio                          # API to access mic stream
+    import pyaudio
 except ImportError:
-    import stub.pyaudio as pyaudio          # temporary stub till work on Android
+    # temporary stub till work on Android
+    import stub.pyaudio as pyaudio
 import os
 import wave
 import pickle
@@ -10,7 +11,11 @@ from array import array
 from struct import pack
 from sklearn.neural_network import MLPClassifier
 
-from predictions.utils import extract_feature
+try:
+    from utils import extract_feature
+except ImportError:
+    # called from SpeedEmotionAnalyzer.py, needs parent folder
+    from predictions.utils import extract_feature
 import text2emotion as te
 
 THRESHOLD = 500
@@ -127,7 +132,11 @@ def record_to_file(path):
 
 def predict_emotion(filename):
     # load the saved model (after training)
-    model = pickle.load(open("predictions/basic.model", "rb"))
+    try:
+        model = pickle.load(open("basic.model", "rb"))
+    except OSError:
+        # called from SpeedEmotionAnalyzer.py, needs parent folder
+        model = pickle.load(open("predictions/basic.model", "rb"))
     features = extract_feature(filename, mfcc=True, chroma=True, mel=True).reshape(1, -1)
     result = model.predict(features)[0]
 
