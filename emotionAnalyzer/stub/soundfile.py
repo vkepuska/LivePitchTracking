@@ -1,4 +1,4 @@
-class soundsile(object):
+class soundfile(object):
   def __init__(self):
     self.__samplerate = 0
     pass
