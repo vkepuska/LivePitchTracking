@@ -70,7 +70,7 @@ class EmotionForm(object, metaclass=Singleton):
 
     def __insert(self,container,icon):
         """Insert images into container"""
-        img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
+        img = Image.open(self.FOLDER+icon.name.lower()+self.EXTENSION)
         # span half of window
         imgWidth = int(self.__window.width/2.0)
         # try to span e/i frame
