@@ -9,7 +9,7 @@ class feature:
     return np.zeros(1)
   
   @classmethod
-  def chroma_stft(cls, yS, sr, n_mfcc):
+  def chroma_stft(cls, S, sr):
     return np.zeros(1)
 
   @classmethod
