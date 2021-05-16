@@ -1,6 +1,9 @@
 class SoundFile(object):
   def __enter__(self):
-        return self
+    return self
+
+  def __exit__(self, exc_type, exc_val, exc_tb):
+    pass
 
   def __init__(self, fileName):
     self.__samplerate = 0
