@@ -11,6 +11,9 @@ class SoundFile(object):
   def open(self):
     pass
 
+  def read(self, dtype):
+    return 0
+
   @property
   def samplerate(self):
       return self.__samplerate
