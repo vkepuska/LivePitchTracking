@@ -13,7 +13,7 @@ class EmotionForm(object, metaclass=Singleton):
 
     # Constants
     FONT_FAMILY = 'Helvetica'                   # font used
-    FONT_SIZE = 12                              # size of font
+    FONT_SIZE = 9                               # size of font
     FONT_WEIGHT = 'bold'                        # boldface or normal
     COLOR = 'snow3'                             # background color
     RELX = 0.0                                  # far left
@@ -57,8 +57,7 @@ class EmotionForm(object, metaclass=Singleton):
 
     def emotion(self, emotion):
         """Set emotion text and icon."""
-        text = 'Emotion: {} {}x{}'.format(
-            emotion.name, self.__imgWidth, self.__imgHeight)
+        text = 'Emotion: {}'.format(emotion.name)
         self.__emotionText.configure(text=text)
         self.__emotionIcon.configure(image=self.__emotion[emotion.value])
 
@@ -73,12 +72,11 @@ class EmotionForm(object, metaclass=Singleton):
         """Insert images into container"""
         img = Image.open(self.FOLDER+icon.name+self.EXTENSION)
         # span half of window
-        self.__imgWidth = int(self.__window.width/2.0)
+        imgWidth = int(self.__window.width/2.0)
         # try to span e/i frame
         scale = self.RELH*(1-self.FRAME_TEXT_H)
-        self.__imgHeight = int(self.__window.height*scale)
-        resizedImg = img.resize(
-            (self.__imgWidth, self.__imgHeight), Image.ANTIALIAS)
+        imgHeight = int(self.__window.height*scale)
+        resizedImg = img.resize((imgWidth, imgHeight), Image.ANTIALIAS)
         container.insert(icon.value, ImageTk.PhotoImage(resizedImg))
 
     def __loadEmotions(self):
