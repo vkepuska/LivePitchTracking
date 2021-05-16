@@ -1,6 +1,6 @@
 try:
     import soundfile
-except ImportError:
+except OSError:
     # temporary stub till work on Android
     import stub.soundfile as soundfile
 import numpy as np
