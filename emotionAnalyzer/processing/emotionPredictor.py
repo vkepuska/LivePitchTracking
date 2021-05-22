@@ -13,18 +13,25 @@ class EmotionPredictor(object, metaclass=Singleton):
     def predict(self, filename):
         """Predict emotion/intensity via convolutional neutal network."""
         # filename    sound file to be analyzed for emotion
-
-        results = predict_emotion(filename)
-        print(results)
-        self.__updateEmotion()
+        self.__updateEmotion(predict_emotion(filename))
 
     def __getEmotionForm(self):
         """Get the widget instance for diplaying emotion."""
         if self.__emotionForm is None:
             self.__emotionForm = EmotionForm.instance
 
-    def __updateEmotion(self):
+    def __updateEmotion(self, results):
         """Set the emotion/intensity displayed."""
+        # results    string of prediction from model
         self.__getEmotionForm()
-        self.__emotionForm.emotion(Emotion.ANGRY)
-        self.__emotionForm.intensity(Intensity.STRONG)
+        self.__emotionForm.emotion(self.__getEnum(Emotion, results))
+        self.__emotionForm.intensity(self.__getEnum(Intensity,results))
+
+    def __getEnum(self, enum, text):
+        """Get the emotion for results string."""
+        # enum      enumerated list
+        # text      string that should match an enumeration
+        for e in enum:
+            if text.lower() == e.name.lower():
+                return e
+
