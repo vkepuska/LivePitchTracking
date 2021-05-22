@@ -3,6 +3,8 @@ from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 from gui.emotionForm import EmotionForm             # display emotion intensity
 from predictions.predictorv0 import predict_emotion # predict emotion via sound file
+from universal.constants import DEFAULT_EMOTION     # starting emotion
+from universal.constants import DEFAULT_INTENSITY   # starting intensity
 
 class EmotionPredictor(object, metaclass=Singleton):
     def __init__(self):
@@ -24,14 +26,15 @@ class EmotionPredictor(object, metaclass=Singleton):
         """Set the emotion/intensity displayed."""
         # results    string of prediction from model
         self.__getEmotionForm()
-        self.__emotionForm.emotion(self.__getEnum(Emotion, results))
-        self.__emotionForm.intensity(self.__getEnum(Intensity,results))
+        self.__emotionForm.emotion(self.__getEnum(Emotion, results, DEFAULT_EMOTION))
+        self.__emotionForm.intensity(self.__getEnum(Intensity, results, DEFAULT_INTENSITY))
 
-    def __getEnum(self, enum, text):
+    def __getEnum(self, enum, text, default):
         """Get the emotion for results string."""
         # enum      enumerated list
         # text      string that should match an enumeration
         for e in enum:
             if text.lower() == e.name.lower():
                 return e
+        return default
 

@@ -3,9 +3,11 @@ import tkinter.font as font                         # font parameters
 from PIL import ImageTk                             # create/modify Tkinter image
 from PIL import Image                               # represent a PIL image 
 from patterns.singleton import Singleton            # design pattern (one instance)
-from universal.measures import Gui
+from universal.measures import Gui                  # size of window
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
+from universal.constants import DEFAULT_EMOTION     # starting emotion
+from universal.constants import DEFAULT_INTENSITY   # starting intensity
 
 
 class EmotionForm(object, metaclass=Singleton):
@@ -22,8 +24,6 @@ class EmotionForm(object, metaclass=Singleton):
     RELH = 0.3                                  # span last segment
     FOLDER = 'image/'                           # location of emoticons
     EXTENSION = '.png'                          # image type extension
-    DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
-    DEFAULT_INTENSITY = Intensity.NORMAL        # intensity to load at start
     FRAME_W = 0.5                               # split boundary in half for type
     FRAME_RELY = 0.0                            # start from top within e/i frame
     FRAME_RELX_E = 0.0                          # emotion is on left
@@ -52,8 +52,8 @@ class EmotionForm(object, metaclass=Singleton):
 
     def __setDefault(self):
         """Set default text and icon for startup."""
-        self.emotion(self.DEFAULT_EMOTION)
-        self.intensity(self.DEFAULT_INTENSITY)
+        self.emotion(DEFAULT_EMOTION)
+        self.intensity(DEFAULT_INTENSITY)
 
     def emotion(self, emotion):
         """Set emotion text and icon."""
