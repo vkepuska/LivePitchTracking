@@ -102,6 +102,7 @@ class Microphone(object, metaclass=Singleton):
         self.__stream.stop_stream()             # deactivate sample collection
         self.__stream.close()
         self.__stream = None
+        self.__emotionPredictor.predict(self.__fileName)
         self.__sampleFile.close()
         self.__sampleFile = None
 
