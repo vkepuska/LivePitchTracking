@@ -6,6 +6,9 @@ FS = 16000                                  # sampling frequency (Hz)
 FRAME_PERIOD = 100                          # time (ms) in analysis window
 NUM_CHANNELS = 1                            # 1=monoaural, 2=stereophonic
 DATA_TYPE = 'int16'                         # sample type (16-bit integer)
+RECORDING = 'recording'                     # name of folder to hold recording
+FILE_NAME_PREFIX = 'SAE'                    # designater for recording from app
+RECORDING_LENGTH = 5                        # seconds to record using mic
 
 # calculated values
 FRAME_DURATION = FRAME_PERIOD / 1000        # fraction of second for frame
