@@ -9,7 +9,7 @@ DATA_TYPE = 'int16'                         # sample type (16-bit integer)
 RECORDING = 'recording'                     # name of folder to hold recording
 FILE_NAME_PREFIX = 'SAE'                    # designater for recording from app
 RECORDING_LENGTH = 5                        # seconds to record using mic
-FRAMES_PER_BUFFER = 128                     # number of frames per buffer
+FRAMES_PER_BUFFER = 1024                     # number of frames per buffer
 
 # defaults
 DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
