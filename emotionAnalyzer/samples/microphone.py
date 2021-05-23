@@ -53,13 +53,16 @@ class Microphone(object, metaclass=Singleton):
     def run(self):
         """Extract sound samples from micophone."""
         # get frame of mic samples
-        raw = self.__stream.read(FRAMES_PER_BUFFER, False)
-        self.__save(raw)
-        data = np.fromstring(raw, DATA_TYPE)    # convert mic samples to type
-        n = len(data)                           # number of samples
-        self.__buffer[0:FS-n] = self.__buffer[n:]     # shift old forward
-        self.__buffer[FS-n:] = data             # append new data
-        return True
+        if self.__stream is None:
+            return False
+        else:
+            raw = self.__stream.read(FRAMES_PER_BUFFER, False)
+            self.__save(raw)
+            data = np.fromstring(raw, DATA_TYPE)    # convert mic samples to type
+            n = len(data)                           # number of samples
+            self.__buffer[0:FS-n] = self.__buffer[n:]     # shift old forward
+            self.__buffer[FS-n:] = data             # append new data
+            return True
 
     def __openSampleFile(self):
         """Open a sample file and if duration exceeded, create new one."""
