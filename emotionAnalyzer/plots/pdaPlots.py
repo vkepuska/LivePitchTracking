@@ -22,7 +22,7 @@ class PdaPlots(object, metaclass=Singleton):
     FONTSIZE = 16                                   # font size for title
     VERTICAL_LAYOUT = True                          # stack subplot up/down
     CLEAR_TIME = 0                                  # reset elapsed time
-    MIC_INTERVAL = int(FRAME_PERIOD)                # mic resampling interval
+    MIC_INTERVAL = FRAME_PERIOD                     # mic resampling interval
     HSPACE = 1                                      # height between subplots
 
     def __init__(self, win):

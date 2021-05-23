@@ -5,7 +5,7 @@ import wave as wav                              # API to access WAV files
 import numpy as np                              # library to convert data
 from patterns.singleton import Singleton        # design pattern (one instance)
 from universal.constants import FS              # sampling frequency
-from universal.constants import FRAME_LENGTH    # analysis window
+from universal.constants import FRAMES_PER_BUFFER   # analysis window
 from universal.constants import NUM_CHANNELS    # audio channels
 from universal.constants import DATA_TYPE       # sample type
 from universal.constants import RECORDING       # folder to store samples
@@ -52,7 +52,8 @@ class Microphone(object, metaclass=Singleton):
 
     def run(self):
         """Extract sound samples from micophone."""
-        raw = self.__stream.read(FRAME_LENGTH, False)   # get frame of mic samples
+        # get frame of mic samples
+        raw = self.__stream.read(FRAMES_PER_BUFFER, False)
         self.__save(raw)
         data = np.fromstring(raw, DATA_TYPE)    # convert mic samples to type
         n = len(data)                           # number of samples
@@ -120,4 +121,4 @@ class Microphone(object, metaclass=Singleton):
             channels=NUM_CHANNELS,              # number of audio channels
             rate=FS,                            # sampling rate
             input=self.INPUT,                   # input stream (mic->program)
-            frames_per_buffer=FRAME_LENGTH)     # number of frames in buffer
+            frames_per_buffer=FRAMES_PER_BUFFER)# number of frames in buffer

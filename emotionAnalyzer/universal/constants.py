@@ -9,10 +9,7 @@ DATA_TYPE = 'int16'                         # sample type (16-bit integer)
 RECORDING = 'recording'                     # name of folder to hold recording
 FILE_NAME_PREFIX = 'SAE'                    # designater for recording from app
 RECORDING_LENGTH = 5                        # seconds to record using mic
-
-# calculated values
-FRAME_DURATION = FRAME_PERIOD / 1000        # fraction of second for frame
-FRAME_LENGTH = round(FRAME_DURATION * FS)   # num samples in analysis window
+FRAMES_PER_BUFFER = 128                     # number of frames per buffer
 
 # defaults
 DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
