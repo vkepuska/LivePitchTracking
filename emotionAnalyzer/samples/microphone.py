@@ -1,7 +1,6 @@
-from os import path
-from os import mkdir
-from datetime import datetime
-import pyaudio
+from os import path                             # check for existing folder
+from os import mkdir                            # make new folder
+from datetime import datetime                   # current date/time
 import wave as wav                              # API to access WAV files
 import numpy as np                              # library to convert data
 from patterns.singleton import Singleton        # design pattern (one instance)
@@ -54,26 +53,26 @@ class Microphone(object, metaclass=Singleton):
     def run(self):
         """Extract sound samples from micophone."""
         raw = self.__stream.read(FRAME_LENGTH, False)   # get frame of mic samples
+        self.__save(raw)
         data = np.fromstring(raw, DATA_TYPE)    # convert mic samples to type
         n = len(data)                           # number of samples
         self.__buffer[0:FS-n] = self.__buffer[n:]     # shift old forward
         self.__buffer[FS-n:] = data             # append new data
-        self.__save(raw)
         return True
 
     def __openSampleFile(self):
+        """Open a sample file and if duration exceeded, create new one."""
         if self.__sampleFile is None:
             self.__newSampleFile()
         else:
-            frames = self.__sampleFile.getnframes()
-            rate = self.__sampleFile.getframerate()
-            duration = frames / float(rate)
+            duration = self.__sampleFile.getnframes() / float(FS)
             if duration >= RECORDING_LENGTH:
                 self.__sampleFile.close()
                 self.__emotionPredictor.predict(self.__fileName)
                 self.__newSampleFile()
 
     def __newSampleFile(self):
+        """Create new sample recording file."""
         self.__newFileName()
         self.__sampleFile = wav.open(self.__fileName, self.OPEN_MODE)
         self.__sampleFile.setnchannels(NUM_CHANNELS)
@@ -81,10 +80,12 @@ class Microphone(object, metaclass=Singleton):
         self.__sampleFile.setframerate(FS)
 
     def __save(self,audio):
+        """Save audio data to sample file."""
         self.__openSampleFile()
         self.__sampleFile.writeframes(audio)
 
     def __newFileName(self):
+        """Create new sample file name per date/time."""
         now = datetime.now()
         dateTimeAppend = now.strftime('%y%m%d_%H%M%S')
         self.__fileName = '{}/{}_{}.wav'.format(RECORDING,
@@ -95,7 +96,10 @@ class Microphone(object, metaclass=Singleton):
         """Close file."""
         self.__buffer = np.zeros(FS)            # clear buffer
         self.__stream.stop_stream()             # deactivate sample collection
+        self.__stream.close()
+        self.__stream = None
         self.__sampleFile.close()
+        self.__sampleFile = None
 
     @property
     def data(self):
