@@ -24,11 +24,8 @@ class MicButton(CommandButton):
     def __configure(self):
         """Initialize the look/location of the Button."""
         self.__mic = Microphone()
-        if self.__mic.enabled:
-            self._button.configure(foreground=self.FOREGROUND)
-            self._button.configure(background=self.START_COLOR)
-        else:
-            self._button['state'] = 'disabled'
+        self._button.configure(foreground=self.FOREGROUND)
+        self._button.configure(background=self.START_COLOR)
 
     def __toggleMic(self):
         """Toggle the microphone button to start/stop it."""

@@ -1,8 +1,4 @@
-try:
-    import pyaudio
-except ImportError:
-    # temporary stub till work on Android
-    import stub.pyaudio as pyaudio
+import pyaudio
 import os
 import wave
 import pickle

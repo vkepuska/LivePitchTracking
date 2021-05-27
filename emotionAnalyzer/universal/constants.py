@@ -3,7 +3,7 @@ from enumerations.emotions import Intensity
 
 # constant values
 FS = 44100                                  # sampling frequency (Hz)
-FRAME_PERIOD = 100                          # time (ms) in analysis window
+FRAME_PERIOD = 10                           # time (ms) in analysis window
 NUM_CHANNELS = 1                            # 1=monoaural, 2=stereophonic
 DATA_TYPE = 'int16'                         # sample type (16-bit integer)
 RECORDING = 'recording'                     # name of folder to hold recording

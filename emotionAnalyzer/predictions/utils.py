@@ -4,10 +4,7 @@ except OSError:
     # temporary stub till work on Android
     import stub.soundfile as soundfile
 import numpy as np
-try:
-    import librosa
-except ImportError:
-    import stub.librosa as librosa
+import librosa
 import glob
 import os
 from sklearn.model_selection import train_test_split
