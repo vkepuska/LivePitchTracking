@@ -50,6 +50,11 @@ The project is currently in the [vkepuska/ece5560-spring2021](https://github.com
 ----
 # Operation
 
+## Recoding
+Pressing the [START button](gui/micButton.py#L30) will [create a wave file])(samples/microphone.py#L43) with the date/time.  These files are save in a *'recoding'* folder.  The audio from a microphone will be sent to the [wave file](samples/microphone.py#L140) and be [used by the plots](plots/pdaPlots.py#L93).  Every [5 seconds](universal/constants.py#L11) (or clicking the STOP button), the wave file will be saved, the [emotion predicted](samples/microphone.py#L77), and a [new wave file started](samples/microphone.py#L79).
+
+## File
+Pressing the [FILE button](gui/fileButton.py) will display a [file browser](gui/fileBrowser.py) for the user to select a wave file for the audio will be [plotted](gui/fileButton.py#L49) and [emotion predicted](gui/fileButton.py#L50).
 
 [top](#top)
 
@@ -77,9 +82,12 @@ The following is a list of possible future improvements.
     1. Get the application to run on an iPhone.
 
 1. Lie Detection
-    1. With a dataset that classifes a person telling the truth vs a lie, a model could be trained to detect a lie.  If so, the application could predict this.
+With a dataset that classifes a person telling the truth vs a lie, a model could be trained to detect a lie.  If so, the application could predict this.
 
 1. Quefrency
-    1. It was proposed to use [quefrency](../SQT%20Slides%2016-4-2021.pdf) as a feature set for the model and to plot its pitch.
+It was proposed to use [quefrency](../SQT%20Slides%2016-4-2021.pdf) as a feature set for the model and to plot its pitch.
+
+1. More Audio Formats
+The application currently only works with [wave files](http://soundfile.sapp.org/doc/WaveFormat/).  It could be updates for [others](https://docs.fileformat.com/audio/) (e.g. [mp3](http://mpgedit.org/mpgedit/mpeg_format/MP3Format.html))
 
 [top](#top)
