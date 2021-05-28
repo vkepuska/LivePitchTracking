@@ -3,6 +3,8 @@
 
 1. [Goal](#Goal)
 1. [Install](#Install)
+    1. [Resources](##Resources)
+    1. [Access](##Access)
 1. [Operation](#Operation)
 1. [Code](#Code)
 1. [Future](#Future)
@@ -41,7 +43,7 @@ The application is currently just Python code.  Here is a list of resources need
 1. [amfm_decompy](https://pypi.org/project/AMFM-decompy/)
 
 ## Access
-The project is currently in the [vkepuska/ece5560-spring2021](https://github.com/vkepuska/ece5560-spring2021) repository.  To gain access, contact [Dr.Kepuska](teacher).  He will have to [invite you as a collaborator](https://github.com/vkepuska/ece5560-spring2021/settings/access) so that you can clone it.
+The project is currently in the [vkepuska/ece5560-spring2021](https://github.com/vkepuska/ece5560-spring2021) repository.  To gain access, contact [Dr.Kepuska](<mailto:vkepuska@fit.edu>) with your GitHub username.  He will have to [invite you as a collaborator](https://github.com/vkepuska/ece5560-spring2021/settings/access) so that you can clone it.
 
 ![][collaborator]
 
@@ -63,18 +65,18 @@ The code has been well documented.  The following shows a mapping to the various
 # Future
 The following is a list of possible future improvements.
 
-## Improve Neural Network Model
-1. tbd
-1. 
+1. Improve Neural Network Model
+    1. 
+    1. 
 
-## Integrate Mobile Phone Solution
-1. 
+1. Integrate Mobile Phone Solution
+    1. 
 
-## Lie Detection
-1.
+1. Lie Detection
+    1.
 
-## Quefrency
-
+1. Quefrency
+    1. 
 
 [top](#top)
 ----
