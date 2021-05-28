@@ -13,7 +13,7 @@
 # Goal
 > Perform real time speech analysis and emotion detection.  The application displays various audio plots and detected emotion.  Recordings are stored, while real time analysis is running.
 
-![][gui]
+![][image/gui.gif]
 
 [top](#top)
 
@@ -45,7 +45,7 @@ The application is currently just Python code.  Here is a list of resources need
 ## Access
 The project is currently in the [vkepuska/ece5560-spring2021](https://github.com/vkepuska/ece5560-spring2021) repository.  To gain access, contact [Dr.Kepuska](<mailto:vkepuska@fit.edu>) with your GitHub username.  He will have to [invite you as a collaborator](https://github.com/vkepuska/ece5560-spring2021/settings/access) so that you can clone it.
 
-![][collaborator]
+![][image/collaborator.gif]
 
 [top](#top)
 
@@ -66,7 +66,7 @@ The code has been well documented.  The following shows a mapping to the various
 The following is a list of possible future improvements.
 
 1. Improve Neural Network Model
-    1. 
+    1. The [model](prediction/basic.model) only produce a [subset](prediction/utils.py:25) of the available emotions.
     1. 
 
 1. Integrate Mobile Phone Solution
@@ -79,10 +79,3 @@ The following is a list of possible future improvements.
     1. 
 
 [top](#top)
-----
-
-<!-- References -->
-[teacher]: <mailto:vkepuska@fit.edu>
-[gui]: image/gui.gif
-[python]: https://www.python.org/downloads/release/python-3710/
-[collaborator]: image/collaborator.gif
