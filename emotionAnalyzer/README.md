@@ -66,7 +66,7 @@ The code has been well documented.  The following shows a mapping to the various
 The following is a list of possible future improvements.
 
 1. Improve Neural Network Model
-    1. The [model](prediction/basic.model) only produce a [subset](prediction/utils.py:25) of the available emotions.
+    1. The [model](prediction/basic.model) only produce a [subset](prediction/utils.py#L25) of the available emotions.
     1. 
 
 1. Integrate Mobile Phone Solution
