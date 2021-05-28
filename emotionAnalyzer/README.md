@@ -62,6 +62,8 @@ Pressing the [FILE button](gui/fileButton.py) will display a [file browser](gui/
 # Code
 The code has been well documented.  The following shows a mapping to the various classes to GUI and processing.
 
+![](image/classMap.gif)
+
 [top](#top)
 
 ----
