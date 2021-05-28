@@ -3,8 +3,6 @@
 
 1. [Goal](#Goal)
 1. [Install](#Install)
-    1. [Resources](##Resources)
-    1. [Access](##Access)
 1. [Operation](#Operation)
 1. [Code](#Code)
 1. [Future](#Future)
