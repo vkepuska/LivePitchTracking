@@ -13,7 +13,7 @@
 # Goal
 > Perform real time speech analysis and emotion detection.  The application displays various audio plots and detected emotion.  Recordings are stored, while real time analysis is running.
 
-![][/image/gui.gif]
+![](/image/gui.gif)
 
 [top](#top)
 
@@ -45,7 +45,7 @@ The application is currently just Python code.  Here is a list of resources need
 ## Access
 The project is currently in the [vkepuska/ece5560-spring2021](https://github.com/vkepuska/ece5560-spring2021) repository.  To gain access, contact [Dr.Kepuska](<mailto:vkepuska@fit.edu>) with your GitHub username.  He will have to [invite you as a collaborator](https://github.com/vkepuska/ece5560-spring2021/settings/access) so that you can clone it.
 
-![][/image/collaborator.gif]
+![](/image/collaborator.gif)
 
 [top](#top)
 
