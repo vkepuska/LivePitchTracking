@@ -64,16 +64,22 @@ The code has been well documented.  The following shows a mapping to the various
 The following is a list of possible future improvements.
 
 1. Improve Neural Network Model
-    1. The [model](predictions/basic.model) only produce a [subset](predictions/utils.py#L25) of the available emotions.
-    1. 
+    1. The [model](predictions/basic.model) currently only produces a [subset](predictions/utils.py#L25) prediction of the [available emotions](https://www.kaggle.com/ejlok1/audio-emotion-part-1-explore-data?rvi=1&scriptVersionId=20844990&cellId=13).  Update the model to support all emotions.
+    1. The RAVDESS dataset includes classes for [emotional intensity](https://www.kaggle.com/ejlok1/audio-emotion-part-1-explore-data?rvi=1&scriptVersionId=20844990&cellId=13).  The application could [update intensity](gui/emotionForm.py#L65) per [prediction](processing/emotionPredictor.py#L15) from model.  If the model were updated to include intensity, the application should need little to no changes.
+    1. The model could be updated to include more [datasets](https://www.kaggle.com/ejlok1/audio-emotion-part-1-explore-data) and could be [augmented](https://www.kaggle.com/ejlok1/audio-emotion-part-5-data-augmentation) to help produce more input permutations.
+    1. The model could be updates to utilize more [features](https://www.kaggle.com/ejlok1/audio-emotion-part-2-feature-extract).
 
 1. Integrate Mobile Phone Solution
-    1. 
+    1. A desired goal is for the application to work on an Adroid phone. This was attemped using [Pydroid 3](https://play.google.com/store/apps/details?id=ru.iiec.pydroid3&hl=en_US&gl=US), but [PyAudio does not yet work on Android](https://stackoverflow.com/questions/12162008/pyaudio-on-android).  Here are a few approaches:
+        1. Wrapper (i.e. Android application) for PyAudio.
+        1. Update PyAudio to be Android compatiable.
+        1. Refactor code to be an [Andoid application](https://www.techradar.com/news/phone-and-communications/mobile-phones/how-to-build-an-android-app-1046599).
+    1. Get the application to run on an iPhone.
 
 1. Lie Detection
-    1.
+    1. With a dataset that classifes a person telling the truth vs a lie, a model could be trained to detect a lie.  If so, the application could predict this.
 
 1. Quefrency
-    1. 
+    1. It was proposed to use [quefrency](../SQT%20Slides%2016-4-2021.pdf) as a feature set for the model and to plot its pitch.
 
 [top](#top)
