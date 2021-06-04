@@ -77,7 +77,6 @@ class Microphone(object, metaclass=Singleton):
                 self.__emotionPredictor.predict(self.__fileName)
                 self.__stream.start_stream()            # reactivate sample collection
                 self.__newSampleFile()                  # create new file for more recording
-                self.__buffer = np.zeros(FS)            # clear samples
                 self.__recorded = 0                     # wait for sufficient recording
 
     def __newSampleFile(self):
