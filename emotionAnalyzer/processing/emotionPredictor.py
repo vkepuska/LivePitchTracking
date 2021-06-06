@@ -29,6 +29,7 @@ class EmotionPredictor(object, metaclass=Singleton):
         if ext == self.MODEL_EXT:
             self.__updateEmotion(predict_emotion(filename))
         elif ext == self.KERAS_EXT:
+            # TODO: After merge of basicNN branch, integrate LivePredictions.make_predictions() functionality.
             messagebox.showerror(
                 "Unsupported File", 'Code needs to be refactored to support {} type files!'.format(ext))
         else:
