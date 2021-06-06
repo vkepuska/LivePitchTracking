@@ -1,21 +1,39 @@
+from pathlib import Path                            # extension extraction
+from tkinter import messagebox                      # error box
 from patterns.singleton import Singleton            # design pattern (one instance)
 from enumerations.emotions import Emotion           # available emotions
 from enumerations.emotions import Intensity         # available intensity
 from gui.emotionForm import EmotionForm             # display emotion intensity
 from predictions.predictorv0 import predict_emotion # predict emotion via sound file
+from universal.constants import MODEL_FILE          # storage for model
 from universal.constants import DEFAULT_EMOTION     # starting emotion
 from universal.constants import DEFAULT_INTENSITY   # starting intensity
 
 class EmotionPredictor(object, metaclass=Singleton):
+    """Predicts emotions from sound file."""
+
+    # Constants
+    MODEL_EXT = '.model'
+    KERAS_EXT = '.h5'
+
     def __init__(self):
         """Construct object."""
         self.__emotionForm = None
         self.__getEmotionForm()
+        self.__kerasModel = None
 
     def predict(self, filename):
         """Predict emotion/intensity via convolutional neutal network."""
         # filename    sound file to be analyzed for emotion
-        self.__updateEmotion(predict_emotion(filename))
+        ext = Path(MODEL_FILE).suffix
+        if ext == self.MODEL_EXT:
+            self.__updateEmotion(predict_emotion(filename))
+        elif ext == self.KERAS_EXT:
+            messagebox.showerror(
+                "Unsupported File", 'Code needs to be refactored to support {} type files!'.format(ext))
+        else:
+            messagebox.showerror(
+                "Invalid Extension", '{} has an invalid extension for model files!'.format(ext))
 
     def __getEmotionForm(self):
         """Get the widget instance for diplaying emotion."""

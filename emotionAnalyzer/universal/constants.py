@@ -1,7 +1,7 @@
 from enumerations.emotions import Emotion
 from enumerations.emotions import Intensity
 
-# constant values
+# audio
 FS = 44100                                  # sampling frequency (Hz)
 FRAME_PERIOD = 10                           # time (ms) in analysis window
 NUM_CHANNELS = 1                            # 1=monoaural, 2=stereophonic
@@ -11,6 +11,9 @@ FILE_NAME_PREFIX = 'SAE'                    # designater for recording from app
 RECORDING_LENGTH = 3                        # seconds to record using mic
 FRAMES_PER_BUFFER = 1024                    # number of frames per buffer
 
-# defaults
+# model
+MODEL_FILE = 'predictions/basic.model'
+
+# defaults emotions
 DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start
 DEFAULT_INTENSITY = Intensity.NORMAL        # intensity to load at start
