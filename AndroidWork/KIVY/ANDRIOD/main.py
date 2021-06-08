@@ -1,28 +1,50 @@
-import kivy
-import random
-
 from kivy.app import App
 from kivy.uix.button import Button
-from kivy.uix.boxlayout import BoxLayout
 
-red = [1,0,0,1]
-green = [0,1,0,1]
-blue =  [0,0,1,1]
-purple = [1,0,1,1]
+# Requires pyaudio
+def record(*arg):
+    import pyaudio
+    import wave
 
-class HBoxLayoutExample(App):
+    CHUNK = 1024
+    FORMAT = pyaudio.paInt16
+    CHANNELS = 2
+    RATE = 44100
+    RECORD_SECONDS = 5
+    WAVE_OUTPUT_FILENAME = "output.wav"
+
+    p = pyaudio.PyAudio()
+
+    stream = p.open(format=FORMAT,
+                    channels=CHANNELS,
+                    rate=RATE,
+                    input=True,
+                    frames_per_buffer=CHUNK)
+
+    print("* recording")
+
+    frames = []
+
+    for i in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+        data = stream.read(CHUNK)
+        frames.append(data)
+
+    print("* done recording")
+
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+    wf = wave.open(WAVE_OUTPUT_FILENAME, 'wb')
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b''.join(frames))
+    wf.close()
+
+
+class recordApp(App):
     def build(self):
-        layout = BoxLayout(padding=10)
-        colors = [red, green, blue, purple]
+        return Button(text="record", on_press=record)
 
-        for i in range(5):
-            btn = Button(text="Button #%s" % (i+1),
-                         background_color=random.choice(colors)
-                         )
-
-            layout.add_widget(btn)
-        return layout
-
-if __name__ == "__main__":
-    app = HBoxLayoutExample()
-    app.run()
+recordApp().run()

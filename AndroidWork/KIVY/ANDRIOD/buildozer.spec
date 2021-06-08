@@ -4,7 +4,7 @@
 title = My Application
 
 # (str) Package name
-package.name = myapp
+package.name = myapp2
 
 # (str) Package domain (needed for android/ios packaging)
 package.domain = org.test
@@ -13,7 +13,8 @@ package.domain = org.test
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,png,jpg,kv,atlas
+#Changed to include portaudio.h
+source.include_exts = py,png,jpg,kv,atlas,h
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -36,8 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy
-
+requirements = python3,kivy,AMFM-decompy,patterns,Universal,pathlib,Wave,PyAudio
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
 # requirements.source.kivy = ../../kivy
@@ -86,6 +86,7 @@ fullscreen = 0
 
 # (list) Permissions
 #android.permissions = INTERNET
+andriod.permissions = RECORD_AUDIO
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27

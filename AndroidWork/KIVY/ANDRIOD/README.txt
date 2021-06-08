@@ -31,3 +31,16 @@ cd cython
 python setup.py install
 python3 setup.py install
 
+#TODO Fix python lib enum for buildozer.spec currently doesn't want to install
+
+#Not sure if this will work since it has c files that need to bget compiled into our build
+sudo apt-get install python3-pyaudio
+sudo apt-get install portaudio19-dev
+brew install portaudio
+sudo apt-get install -y lld
+#May need to manually compile and install port audio
+git clone https://github.com/PortAudio/portaudio.git
+cd portaudio
+./configure
+make -j 4
+sudo make install
