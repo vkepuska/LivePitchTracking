@@ -12,7 +12,8 @@ RECORDING_LENGTH = 3                        # seconds to record using mic
 FRAMES_PER_BUFFER = 1024                    # number of frames per buffer
 
 # model
-MODEL_FILE = 'predictions/basic.model'
+#MODEL_FILE = 'predictions/basic.model'
+MODEL_FILE = 'models/Emotion_Voice_Detection_Modelv6.h5'
 
 # defaults emotions
 DEFAULT_EMOTION = Emotion.NEUTRAL           # emotion to load at start

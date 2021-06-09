@@ -8,6 +8,7 @@ from predictions.predictorv0 import predict_emotion # predict emotion via sound 
 from universal.constants import MODEL_FILE          # storage for model
 from universal.constants import DEFAULT_EMOTION     # starting emotion
 from universal.constants import DEFAULT_INTENSITY   # starting intensity
+from notebooks.live_predictions import LivePredictions  # predict emotion from file
 
 class EmotionPredictor(object, metaclass=Singleton):
     """Predicts emotions from sound file."""
@@ -20,7 +21,6 @@ class EmotionPredictor(object, metaclass=Singleton):
         """Construct object."""
         self.__emotionForm = None
         self.__getEmotionForm()
-        self.__kerasModel = None
 
     def predict(self, filename):
         """Predict emotion/intensity via convolutional neutal network."""
@@ -29,9 +29,8 @@ class EmotionPredictor(object, metaclass=Singleton):
         if ext == self.MODEL_EXT:
             self.__updateEmotion(predict_emotion(filename))
         elif ext == self.KERAS_EXT:
-            # TODO: After merge of basicNN branch, integrate LivePredictions.make_predictions() functionality.
-            messagebox.showerror(
-                "Unsupported File", 'Code needs to be refactored to support {} type files!'.format(ext))
+            lp = LivePredictions(filename)
+            self.__updateEmotion(lp.make_predictions())
         else:
             messagebox.showerror(
                 "Invalid Extension", '{} has an invalid extension for model files!'.format(ext))
